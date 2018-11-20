@@ -51,8 +51,9 @@ public class TableController implements Initializable{
                 else 
                     r.setFill(Color.WHITE);
                 
-                table.setRectangle(r);
+                
                 gridTab.add(table, j,i);
+                gridTab.add(r, j,i);
                 r.setOnMouseClicked((event) -> {
                     
                 });

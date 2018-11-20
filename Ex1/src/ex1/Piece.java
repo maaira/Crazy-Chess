@@ -6,7 +6,7 @@ public abstract class Piece {
     protected int team;
     //the position: location[0] = x e location[1]=y
     protected int location[]= new int[2];    
-    protected String nome;
+    //protected String nome;
     /*enables and disables the piece*/
     protected boolean move_status ;
     
@@ -17,7 +17,7 @@ public abstract class Piece {
         return team;
     }
 
-    public int[] getPosition() {
+    public int[] getLocation() {
         return location;
     }
 
@@ -25,14 +25,12 @@ public abstract class Piece {
         this.location = position;
     }
     
-    public void setPosition(int x, int y) {
+    public void setLocation(int x, int y) {
         this.location[0] = x;
-        this.location[0] = y;
+        this.location[1] = y;
     }
 
-    public String getNome() {
-        return nome;
-    }  
+    
     //function to move
     public abstract boolean movePiece(int x, int y);
     //function to validate the movement of the piece

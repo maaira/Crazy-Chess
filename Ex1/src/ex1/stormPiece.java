@@ -11,7 +11,7 @@ public class stormPiece extends Piece{
     public boolean movePiece(int x, int y) {
         if(!calculateMovePiece(x,y))return false;
         
-        else setPosition(x,y);
+        else setLocation(x,y);
         return false;
         
         
@@ -32,7 +32,7 @@ public class stormPiece extends Piece{
         if(!calculateMovePiece(x,y))return false;
         
         
-        setPosition(x,y);
+       setLocation(x,y);
         if(u.getPiece().contains(p)){
              u.getPiece().remove(p);
              u2.getPiecesAttacked().add(p);

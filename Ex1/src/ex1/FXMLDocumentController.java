@@ -12,9 +12,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,27 +26,28 @@ import javafx.stage.Stage;
  */
 public class FXMLDocumentController implements Initializable {
     
-    @FXML
     private Label label;
     Parent root;
+    
     @FXML
     private void handleButtonAction(ActionEvent event) {
         try {
+            
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Table.fxml"));
             root = (Parent)fxmlLoader.load();
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             //stage.initStyle(StageStyle.UNDECORATED);            
             stage.setTitle("Table");
-            stage.setScene(new Scene(root, 40*16, 40*16));
+            stage.setScene(new Scene(root, 50*14, 50*14));
 
             TableController controller = fxmlLoader.<TableController>getController();
             controller.montarGrid();
            
 
-            stage.hide();
+            stage.show();
             // Esconde a janela atual
-            // ((Node)(event.getSource())).getScene().getWindow().hide();
+            
                    
         }
         catch (IOException e) {
@@ -57,5 +60,7 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    
     
 }

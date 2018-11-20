@@ -16,15 +16,15 @@ import javafx.scene.shape.Rectangle;
 
 
 public class TableController implements Initializable{
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
     }
     
     @FXML BorderPane bpMain;
-    private int linhas=16, colunas=16;
-  
+    private int linhas=14, colunas=14;    
+    
     
     
     void montarGrid(){
@@ -32,24 +32,27 @@ public class TableController implements Initializable{
         
         for (int i = 0; i <= linhas; i++) {
             RowConstraints con = new RowConstraints();
-            con.setPrefHeight(40);
+            con.setPrefHeight(50);
             gridTab.getRowConstraints().add(con);
         }       
         
         for (int i = 0; i <= colunas; i++) {
             ColumnConstraints con = new ColumnConstraints();
-            con.setPrefWidth(40);
+            con.setPrefWidth(50);
             gridTab.getColumnConstraints().add(con);
         }
         
         for(int i=0; i<linhas; i++){
             for(int j=0;j<colunas;j++){
-                final Rectangle r = new Rectangle(40, 40);
+                final Rectangle r = new Rectangle(50, 50);
+                final TableParts table = new TableParts();
                 if((i%2==0 && j%2!=0) || (i%2!=0 && j%2==0)) 
                     r.setFill(Color.BLACK);
                 else 
                     r.setFill(Color.WHITE);
-                gridTab.add(r, j, i);
+                
+                table.setRectangle(r);
+                gridTab.add(table, j,i);
                 r.setOnMouseClicked((event) -> {
                     
                 });

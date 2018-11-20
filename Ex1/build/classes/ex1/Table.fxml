@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" style="-fx-background-image: url(&quot;file:src/images/abre.jpg&quot;); -fx-background-position: center center; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ex1.FXMLDocumentController">
-   <children>
-      <Label layoutX="117.0" layoutY="22.0" text="Lapa Wars" textFill="WHITE">
-         <font>
-            <Font name="DeathStar" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="77.0" layoutY="39.0" text="A guerra dos Big Big's" textFill="WHITE">
-         <font>
-            <Font name="DeathStar" size="15.0" />
-         </font>
-      </Label>
-      <Button layoutX="132.0" layoutY="137.0" mnemonicParsing="false" text="Iniciar" />
-      <TextField layoutX="67.0" layoutY="100.0" />
-      <TextField layoutX="69.0" layoutY="62.0" />
-   </children>
-</AnchorPane>
+<BorderPane fx:id="bpMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ex1.TableController" />

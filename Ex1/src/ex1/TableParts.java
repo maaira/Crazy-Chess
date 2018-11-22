@@ -37,7 +37,7 @@ public class TableParts extends Rectangle{
     }
 
    
-    public TableParts(String path,Color c, int x, int y) {
+    public TableParts(Color c, int x, int y) {
         this.location[0] = x;
         this.location[1] = y;
         setFill(c);        

@@ -1,48 +1,58 @@
 
 package ex1;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  * @author Maira
  */
 public class MilleniumPiece extends Piece{
 
-    public MilleniumPiece(String path, int x, int y, int team) {
-        super(path, x, y, team);
+    public MilleniumPiece(String path, TableParts t, int team) throws FileNotFoundException {
+        super(path, t, team);
     }
 
     @Override
-    public boolean movePiece(TableParts t) {
-        if(!calculateMovePiece(t.getLocationX(),t.getLocationY()))return false;
+    public boolean movePiece(TableParts[][] t) {
+        //if(!calculateMovePiece(t[][].getLocationX(),t[].getLocationY()))return false;
         
-        else setLocation(t);
+        //else setLocation(t);
         return false;
         
         
     }
 
-    @Override
-    protected boolean calculateMovePiece(int x, int y) {
+    protected boolean calculateMovePiece(TableParts[][] table ,int x ,int y) {
         
-        if((location[1]+1==y) && ( location[0]==x)) return true;
-        if((location[1]-1==y) && ((location[0]==x)) )return true;
-        if((location[1]+2==y) && ((location[0]+1==x) ||(location[0]-1==x)) )return true;
-        if((location[1]-2==y) && ((location[0]+1==x) ||(location[0]-1==x)) )return true;
-        if((location[1]+3==y) && ((location[0]+2==x)|| (location[0]-2==x)) ) return true;
-        if((location[1]-3==y) && ((location[0]+2==x)|| (location[0]-2==x)) ) return true;
-        if((location[1]+4==y) && ((location[0]+3==x)|| (location[0]-3==x)) ) return true;
-        if((location[1]-4==y) && ((location[0]+3==x)|| (location[0]-3==x)) ) return true;
+        int xInit = t.getLocationX() ;
+        int yinit = t.getLocationY();
+        int i = 0;
+        while(i<4){
+            
+        }
+                
+                
+        //if((yinit+1==y) && ( xInit==x)) return true;
+        //if((yinit-1==y) && ((xInit==x)) )return true;
+        //if((yinit+2==y) && ((xInit+1==x) ||(xInit-1==x)) )return true;
+        //if((yinit-2==y) && ((xInit+1==x) ||(xInit-1==x)) )return true;
+        //if((yinit+3==y) && ((xInit+2==x)|| (xInit-2==x)) ) return true;
+        //if((yinit-3==y) && ((xInit+2==x)|| (xInit-2==x)) ) return true;
+        //if((yinit+4==y) && ((xInit==x)|| (xInit==x)) ) return true;
+        //if((yinit-4==y) && ((xInit==x)|| (xInit==x)) ) return true;
         
-        else return false;
+        return false;
+        
        
     }
 
     @Override
-    protected boolean attackMove(TableParts t) {
-        if(!calculateMovePiece(t.getLocationX(),t.getLocationY()))return false;
+    protected boolean attackMove(TableParts[][] t) {
+        //if(!calculateMovePiece(t.getLocationX(),t.getLocationY()))return false;
         
         
-        setLocation(t);
+        //setLocation(t);
         
         
         return true;
@@ -52,6 +62,11 @@ public class MilleniumPiece extends Piece{
 
     @Override
     protected boolean calculeteAttackMove() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected boolean calculateMovePiece(TableParts t, int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

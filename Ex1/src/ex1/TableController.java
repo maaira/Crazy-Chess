@@ -2,6 +2,7 @@
 package ex1;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
@@ -31,7 +32,11 @@ public class TableController implements Initializable{
     private int linhas=14, colunas=14;    
     private GridPane gridTab;
     private TableParts[][] table;
-    void montarGrid(){
+    
+        private Piece actualPiece;
+    private int initPositionX, initPositionY,finalPositionX,finalPositionY ;
+    
+    void montarGrid() throws FileNotFoundException{
         GridPane gridTab = new GridPane();
         
         TableParts t [][]= new TableParts[14][14];
@@ -60,11 +65,11 @@ public class TableController implements Initializable{
             for(int j=0;j<colunas;j++){               
                               
                 if((i%2==0 && j%2!=0) || (i%2!=0 && j%2==0)){ 
-                    t[i][j]= new TableParts("src/images/millenium_falcon.png", Color.BLACK, i, j);
+                    t[i][j]= new TableParts( Color.BLACK, i, j);
                     addEventesToTable(t[i][j]);
                 }
                 else {
-                    t[i][j]= new TableParts("src/images/millenium_falcon.png",Color.GHOSTWHITE, i, j);
+                    t[i][j]= new TableParts(Color.GHOSTWHITE, i, j);
                     addEventesToTable(t[i][j]);
                 }
                 gridTab.add(t[i][j], j,i);            
@@ -74,16 +79,28 @@ public class TableController implements Initializable{
         }
         this.gridTab= gridTab;
         table = t;
-        //addPieces();
+        addPieces();
         bpMain.setCenter(gridTab);
     }
-    
+    void reset(){
+         actualPiece=null;
+         
+         
+    }
     public void addEventesToTable(TableParts t){
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("You clicked me!"); 
-                t.getLocationX();
+                finalPositionX = t.getLocationX();
+                finalPositionY = t.getLocationY();
+                if(actualPiece!=null){
+                    
+                    gridTab.getChildren().remove(actualPiece);
+                    gridTab.add(actualPiece, finalPositionY, finalPositionX);
+                    actualPiece=null;
+                    
+                }
             }
    
    
@@ -91,23 +108,47 @@ public class TableController implements Initializable{
         t.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
     }
     
-    public void addPieces(){
+    public void addPieces() throws FileNotFoundException{
         addMilleniumFalcon();
+        addLeiaPiece();
     }
     
-    public void addMilleniumFalcon(){
-        String path = "src/images/millenium_falcon.png";
-        Image img = new Image(path);
-        //team 1 
-        MilleniumPiece falcon  = new MilleniumPiece(path,0,0,0);
-        //team 2
-        MilleniumPiece falcon2 = new MilleniumPiece(path,5,14,1);
-        //seta a peça e o imagem da peça
-        table[0][0].setFill(new ImagePattern(img));        
-        table[10][10].setFill(new ImagePattern(img));
-        table[0][0].setPiece(falcon);
-        table[10][10].setPiece(falcon2);
+    public void addMilleniumFalcon() throws FileNotFoundException{
+        MilleniumPiece m = new MilleniumPiece("images/millenium_falcon.png", table[0][0], 1);
+        gridTab.add(m, 1, 1);
+        table[0][0].setPiece(m);
+        addEventesToPiece(m);
+        
+        MilleniumPiece m2 = new MilleniumPiece("images/millenium_falcon.png", table[0][0], 0);
+        gridTab.add(m2, 5, 5);
+        table[0][0].setPiece(m2);
+        addEventesToPiece(m2);
+    }
+    
+    public void addLeiaPiece() throws FileNotFoundException{
+        LeiaPiece L = new LeiaPiece("images/Leia.png", table[2][2], 1);
+        gridTab.add(L, 2, 2);
+        table[2][2].setPiece(L);
+        addEventesToPiece(L);
+        
+        LeiaPiece L2 = new LeiaPiece("images/Leia.png", table[10][0], 0);
+        gridTab.add(L2, 10, 0);
+        table[10][0].setPiece(L2);
+        addEventesToPiece(L2);
+   }
+    
+   public void addEventesToPiece(Piece p){
+        EventHandler<javafx.scene.input.MouseEvent> eventHandlerPiece = new EventHandler<javafx.scene.input.MouseEvent>() { 
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("You clicked a Piece!"); 
+                actualPiece = p;
+            }
+   
+   
+        };
+        p.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandlerPiece);
     }
 
-    
+     
 }

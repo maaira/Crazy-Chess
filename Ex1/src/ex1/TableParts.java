@@ -1,23 +1,18 @@
 
 package ex1;
 
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.jmx.MXNodeAlgorithm;
-import com.sun.javafx.jmx.MXNodeAlgorithmContext;
-import com.sun.javafx.sg.prism.NGNode;
-import ex1.Piece;
-import javafx.scene.Node;
+
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
-public class TableParts extends ImageView{
+public class TableParts extends Rectangle{
     private Piece piece;
-    private Image picture;
-   
-    private int location[]= new int[2]; 
-    
+    private final int width = 50;
+    private final int height = 50;
+    private final int location[]= new int[2]; 
+       
     
     public Piece getPiece() {
         return piece;
@@ -32,15 +27,24 @@ public class TableParts extends ImageView{
     public int[] getLocation() {
         return location;
     }
-
-//    public void setLocation(int[] location) {
-//        this.location = location;
-//    }
     
-    public void setLocation(int x, int y) {
+    public int getLocationX() {
+        return location[0];
+    }
+    
+    public int getLocationY() {
+        return location[1];
+    }
+
+   
+    public TableParts(String path,Color c, int x, int y) {
         this.location[0] = x;
         this.location[1] = y;
-    }    
+        setFill(c);        
+        setHeight(this.height);
+        setWidth(this.width);
+        relocate(x*50, y*50);;
+    }   
 
     
     

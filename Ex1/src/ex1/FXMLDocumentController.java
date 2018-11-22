@@ -43,6 +43,7 @@ public class FXMLDocumentController implements Initializable {
 
             TableController controller = fxmlLoader.<TableController>getController();
             controller.montarGrid();
+            //controller.addPieces();
            
 
             stage.show();

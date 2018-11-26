@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Aluno.C305-3007575/Documents/Crazy-Chess-master/Ex1/src/images/Leia.png</file>
-            <file>file:/C:/Users/Aluno.C305-3007575/Documents/Crazy-Chess-master/Ex1/src/ex1/LeiaPiece.java</file>
-            <file>file:/C:/Users/Aluno.C305-3007575/Documents/Crazy-Chess-master/Ex1/src/ex1/TableController.java</file>
-            <file>file:/C:/Users/Aluno.C305-3007575/Documents/Crazy-Chess-master/Ex1/src/ex1/TableParts.java</file>
-            <file>file:/C:/Users/Aluno.C305-3007575/Documents/Crazy-Chess-master/Ex1/src/ex1/MilleniumPiece.java</file>
-            <file>file:/C:/Users/Aluno.C305-3007575/Documents/Crazy-Chess-master/Ex1/src/ex1/Piece.java</file>
+            <file>file:/C:/Users/win7/Crazy-Chess/Ex1/src/ex1/TableParts.java</file>
+            <file>file:/C:/Users/win7/Crazy-Chess/Ex1/src/ex1/Piece.java</file>
+            <file>file:/C:/Users/win7/Crazy-Chess/Ex1/src/ex1/StormPiece.java</file>
+            <file>file:/C:/Users/win7/Crazy-Chess/Ex1/src/ex1/MilleniumPiece.java</file>
+            <file>file:/C:/Users/win7/Crazy-Chess/Ex1/src/ex1/TableController.java</file>
         </group>
     </open-files>
 </project-private>

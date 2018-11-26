@@ -2,6 +2,8 @@
 package ex1;
 
 import java.io.FileNotFoundException;
+import javafx.scene.layout.GridPane;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,42 +15,109 @@ public class MilleniumPiece extends Piece{
         super(path, t, team);
     }
 
-    @Override
-    public boolean movePiece(TableParts[][] t) {
-        //if(!calculateMovePiece(t[][].getLocationX(),t[].getLocationY()))return false;
-        
-        //else setLocation(t);
-        return false;
-        
-        
+     
+    public boolean  Handler(TableParts[][] table ,int x ,int y){
+        boolean  key=false;
+        if(table[x][y].getPiece()==null){
+            key = movePiece( table, x, y); 
+        }
+               
+        else if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()==team){
+            key = false;
+        }
+        else if((table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team)) {
+            key = attackMove( table, x , y);
+        }   
+        return key;
     }
-
+         
+    @Override
     protected boolean calculateMovePiece(TableParts[][] table ,int x ,int y) {
         
         int xInit = t.getLocationX() ;
-        int yinit = t.getLocationY();
-        int i = 0;
-        while(i<4){
-            
+        int yInit = t.getLocationY();
+        int i=xInit+1, j=yInit+1;
+        if(x>i && y>j){
+            if(table[i][j+1].getPiece()==null){
+                j++;
+                while(i<=x){
+                    while(j<=y){
+
+                        if(table[x][j].getPiece()==null){
+                            i++;
+                            j++;
+                        }else{
+                            return false;
+                        }
+                    }
+                }
+            }
+            return i==x && y==j+1;
         }
-                
-                
-        //if((yinit+1==y) && ( xInit==x)) return true;
-        //if((yinit-1==y) && ((xInit==x)) )return true;
-        //if((yinit+2==y) && ((xInit+1==x) ||(xInit-1==x)) )return true;
-        //if((yinit-2==y) && ((xInit+1==x) ||(xInit-1==x)) )return true;
-        //if((yinit+3==y) && ((xInit+2==x)|| (xInit-2==x)) ) return true;
-        //if((yinit-3==y) && ((xInit+2==x)|| (xInit-2==x)) ) return true;
-        //if((yinit+4==y) && ((xInit==x)|| (xInit==x)) ) return true;
-        //if((yinit-4==y) && ((xInit==x)|| (xInit==x)) ) return true;
+        else if(x>i && y<j){
+            if(table[i][j-1].getPiece()==null){
+                j--;
+                while(i<=x){
+                    while(j>=y){
+
+                        if(table[x][j].getPiece()==null){
+                            i++;
+                            j--;
+                        }else{
+                            return false;
+                        }
+                    }
+                }
+            }
+            return i==x && y==j+1;
+        }
         
+        else if(x<i && y<j){
+            if(table[i][j-1].getPiece()==null){
+                j--;
+                while(i>=x){
+                    while(j>=y){
+
+                        if(table[x][j].getPiece()==null){
+                            i--;
+                            j--;
+                        }else{
+                            return false;
+                        }
+                    }
+                }
+            }
+            return i==x && y==j;
+
+        }
+        else if(x<i && y>j){
+            if(table[i][j+1].getPiece()==null){
+                j++;
+                while(i<=x){
+                    while(j<=y){
+
+                        if(table[x][j].getPiece()==null){
+                            i--;
+                            j++;
+                        }else{
+                            return false;
+                        }
+                    }
+                }
+            }
+            return i==x && y==j;
+        }
         return false;
+        
+                
+                
+        
         
        
     }
 
     @Override
-    protected boolean attackMove(TableParts[][] t) {
+    protected boolean attackMove(TableParts[][] t ,int x ,int y) {
         //if(!calculateMovePiece(t.getLocationX(),t.getLocationY()))return false;
         
         
@@ -61,13 +130,20 @@ public class MilleniumPiece extends Piece{
     }
 
     @Override
-    protected boolean calculeteAttackMove() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean movePiece(TableParts[][] table, int x, int y) {
+        if(!calculateMovePiece(table,x,y)){
+            t=table[x][y];
+            
+            return true;
+        }
+        return false;
     }
 
     @Override
-    protected boolean calculateMovePiece(TableParts t, int x, int y) {
+    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
 }

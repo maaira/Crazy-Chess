@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 
 public abstract class Piece extends ImageView{
@@ -39,6 +40,14 @@ public abstract class Piece extends ImageView{
         return team;
     }
     
+    public TableParts getTableParts() {
+        return t;
+    }
+    
+    public void setTableParts(TableParts t) {
+       this.t = t;
+    }
+    
     private void setTam(){
         this.fitHeightProperty().set(50);
         this.fitWidthProperty().set(50);
@@ -55,13 +64,13 @@ public abstract class Piece extends ImageView{
         t.setPiece(this);
     }*/
 
-    
+    public abstract boolean Handler(TableParts[][] table ,int x ,int y);
     //function to move
-    public abstract boolean movePiece(TableParts[][] t);
+    public abstract boolean movePiece(TableParts[][] table ,int x ,int y);
     //function to validate the movement of the piece
-    protected abstract boolean calculateMovePiece(TableParts t ,int x ,int y);
+    protected abstract boolean calculateMovePiece(TableParts[][] table ,int x ,int y);
     //function to attack
-    protected abstract boolean attackMove(TableParts[][] t);
+    protected abstract boolean attackMove(TableParts[][] table ,int x ,int y);
     //function to validate the attack of the piece
-    protected abstract boolean calculeteAttackMove();
+    protected abstract boolean calculeteAttackMove(TableParts[][] table ,int x ,int y);
 }

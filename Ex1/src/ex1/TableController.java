@@ -6,19 +6,14 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 
 
 public class TableController implements Initializable{
@@ -29,11 +24,12 @@ public class TableController implements Initializable{
     }
     
     @FXML BorderPane bpMain;
-    private int linhas=14, colunas=14;    
+    private final int linhas = 14;    
+    private final int colunas = 14;
     private GridPane gridTab;
     private TableParts[][] table;
     
-        private Piece actualPiece;
+    private Piece actualPiece;
     private int initPositionX, initPositionY,finalPositionX,finalPositionY ;
     
     void montarGrid() throws FileNotFoundException{
@@ -87,25 +83,38 @@ public class TableController implements Initializable{
          
          
     }
-    public void addEventesToTable(TableParts t){
+    public void addEventesToTable(TableParts t1){
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("You clicked me!"); 
-                finalPositionX = t.getLocationX();
-                finalPositionY = t.getLocationY();
-                if(actualPiece!=null){
+                TableParts t= (TableParts) event.getSource();
+                if(t.getPiece()!=null){
                     
-                    gridTab.getChildren().remove(actualPiece);
-                    gridTab.add(actualPiece, finalPositionY, finalPositionX);
-                    actualPiece=null;
+                }else{                   
                     
+                    finalPositionX = t.getLocationX();
+                    finalPositionY = t.getLocationY();
+                    if(actualPiece!=null){
+                                                   
+                        boolean key ;
+                        key = actualPiece.movePiece(table, finalPositionX, finalPositionY);
+                        if(!key){
+                            System.out.println("Movimento Invalido.");
+                        }else{
+                            gridTab.getChildren().remove(actualPiece);
+                            gridTab.add(actualPiece, finalPositionY, finalPositionX );
+                            actualPiece.setTableParts(t);
+                            System.out.println("Movimento Aceito.");
+                        }
+                    }
                 }
+                
             }
    
    
         };
-        t.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
+        t1.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
     }
     
     public void addPieces() throws FileNotFoundException{

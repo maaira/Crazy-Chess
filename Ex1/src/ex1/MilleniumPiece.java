@@ -2,6 +2,8 @@
 package ex1;
 
 import java.io.FileNotFoundException;
+import javafx.scene.layout.GridPane;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,42 +15,81 @@ public class MilleniumPiece extends Piece{
         super(path, t, team);
     }
 
-    @Override
-    public boolean movePiece(TableParts[][] t) {
-        //if(!calculateMovePiece(t[][].getLocationX(),t[].getLocationY()))return false;
-        
-        //else setLocation(t);
-        return false;
-        
-        
+     
+    public boolean  Handler(TableParts[][] table ,int x ,int y){
+        boolean  key=false;
+        if(table[x][y].getPiece()==null){
+            key = movePiece( table, x, y); 
+        }
+               
+        else if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()==team){
+            key = false;
+        }
+        else if((table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team)) {
+            key = attackMove( table, x , y);
+        }   
+        return key;
     }
-
+         
+    @Override
     protected boolean calculateMovePiece(TableParts[][] table ,int x ,int y) {
         
-        int xInit = t.getLocationX() ;
-        int yinit = t.getLocationY();
-        int i = 0;
-        while(i<4){
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+//        boolean key=true;
+        int cont=0;
+        if(table[i][j+1].getPiece()==null || table[i][j-1].getPiece()==null){
+            if(y<j )j++;
+            if(y>j )j--;
             
+            while(cont<4){
+
+                if(table[x][y]==table[i][j])return true;
+                else if(i<x && j<y) {
+                    if (table[i][j].getPiece()==null) {
+                        i++;
+                        j++;
+                    }else return false;
+                }
+                else if(i>x && j<y){
+                    if (table[i][j].getPiece()==null) {
+                        i--;
+                        j++;
+                    }else return false;
+
+                }
+                else if(i>x && j>y){
+                    if (table[i][j].getPiece()==null) {
+                        i--;
+                        j--;
+                    }else return false;
+
+                }
+                else if(i<x && j>y){
+                    if (table[i][j].getPiece()==null) {
+                        i++;
+                        j--;
+                    }else return false;
+                }
+                else return false;
+                cont++;
+
+
+            }
         }
-                
-                
-        //if((yinit+1==y) && ( xInit==x)) return true;
-        //if((yinit-1==y) && ((xInit==x)) )return true;
-        //if((yinit+2==y) && ((xInit+1==x) ||(xInit-1==x)) )return true;
-        //if((yinit-2==y) && ((xInit+1==x) ||(xInit-1==x)) )return true;
-        //if((yinit+3==y) && ((xInit+2==x)|| (xInit-2==x)) ) return true;
-        //if((yinit-3==y) && ((xInit+2==x)|| (xInit-2==x)) ) return true;
-        //if((yinit+4==y) && ((xInit==x)|| (xInit==x)) ) return true;
-        //if((yinit-4==y) && ((xInit==x)|| (xInit==x)) ) return true;
         
         return false;
+        
+                
+                
+        
         
        
     }
 
     @Override
-    protected boolean attackMove(TableParts[][] t) {
+    protected boolean attackMove(TableParts[][] t ,int x ,int y) {
         //if(!calculateMovePiece(t.getLocationX(),t.getLocationY()))return false;
         
         
@@ -61,13 +102,20 @@ public class MilleniumPiece extends Piece{
     }
 
     @Override
-    protected boolean calculeteAttackMove() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean movePiece(TableParts[][] table, int x, int y) {
+        if(calculateMovePiece(table,x,y)){
+            t=table[x][y];
+            
+            return true;
+        }
+        return false;
     }
 
     @Override
-    protected boolean calculateMovePiece(TableParts t, int x, int y) {
+    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
 }

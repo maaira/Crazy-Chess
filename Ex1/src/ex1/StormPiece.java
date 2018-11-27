@@ -11,12 +11,17 @@ import java.io.FileNotFoundException;
  *
  * @author Caique
  */
+<<<<<<< HEAD
 public class StormPiece extends Piece{
+=======
+public class StormPiece  {
+>>>>>>> 4b82bef98dd0be495e50b4ccb5c204e833ec3548
 
     public StormPiece(String path, TableParts t, int team) throws FileNotFoundException {
-        super(path, t, team);
+        
     }
 
+<<<<<<< HEAD
     @Override
     public boolean Handler(TableParts[][] table, int x, int y) {
         System.out.println("");
@@ -91,6 +96,24 @@ public class StormPiece extends Piece{
 
     @Override
     protected boolean attackMove(TableParts[][] table, int x, int y) {
+=======
+    
+    public boolean movePiece(TableParts[][] t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    protected boolean calculateMovePiece(TableParts t ,int x ,int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    protected boolean attackMove(TableParts[][] t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    protected boolean calculeteAttackMove() {
+>>>>>>> 4b82bef98dd0be495e50b4ccb5c204e833ec3548
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

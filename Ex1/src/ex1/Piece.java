@@ -3,6 +3,7 @@ package ex1;
 import java.io.FileNotFoundException;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 
 public abstract class Piece extends ImageView{

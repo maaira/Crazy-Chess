@@ -36,77 +36,45 @@ public class MilleniumPiece extends Piece{
         
         int xInit = t.getLocationX() ;
         int yInit = t.getLocationY();
-        int i=xInit+1, j=yInit+1;
-        if(x>i && y>j){
-            if(table[i][j+1].getPiece()==null){
-                j++;
-                while(i<=x){
-                    while(j<=y){
-
-                        if(table[x][j].getPiece()==null){
-                            i++;
-                            j++;
-                        }else{
-                            return false;
-                        }
-                    }
-                }
+        int i=xInit, j=yInit;
+        boolean key=true;
+        int cont=0;
+        
+        while(key && cont<4){
+            
+            
+            if(i<x && j<y) {
+                if (table[i][j+1].getPiece()==null) {
+                    i++;
+                    j++;
+                }else return false;
             }
-            return i==x && y==j+1;
-        }
-        else if(x>i && y<j){
-            if(table[i][j-1].getPiece()==null){
-                j--;
-                while(i<=x){
-                    while(j>=y){
+            else if(i>x && j<y){
+                if (table[i][j+1].getPiece()==null) {
+                    i--;
+                    j++;
+                }else return false;
 
-                        if(table[x][j].getPiece()==null){
-                            i++;
-                            j--;
-                        }else{
-                            return false;
-                        }
-                    }
-                }
             }
-            return i==x && y==j+1;
+            else if(i>x && j>y){
+                if (table[i][j-1].getPiece()==null) {
+                    i--;
+                    j--;
+                }else return false;
+
+            }
+            else if(i<x && j>y){
+                if (table[i][j-1].getPiece()==null) {
+                    i++;
+                    j--;
+                }else return false;
+            }
+            
+            cont++;
+            if(i==x && j==y)return true;
+            
         }
         
-        else if(x<i && y<j){
-            if(table[i][j-1].getPiece()==null){
-                j--;
-                while(i>=x){
-                    while(j>=y){
-
-                        if(table[x][j].getPiece()==null){
-                            i--;
-                            j--;
-                        }else{
-                            return false;
-                        }
-                    }
-                }
-            }
-            return i==x && y==j;
-
-        }
-        else if(x<i && y>j){
-            if(table[i][j+1].getPiece()==null){
-                j++;
-                while(i<=x){
-                    while(j<=y){
-
-                        if(table[x][j].getPiece()==null){
-                            i--;
-                            j++;
-                        }else{
-                            return false;
-                        }
-                    }
-                }
-            }
-            return i==x && y==j;
-        }
         return false;
         
                 
@@ -132,7 +100,7 @@ public class MilleniumPiece extends Piece{
     @Override
     public boolean movePiece(TableParts[][] table, int x, int y) {
         if(!calculateMovePiece(table,x,y)){
-            t=table[x][y];
+            //t=table[x][y];
             
             return true;
         }

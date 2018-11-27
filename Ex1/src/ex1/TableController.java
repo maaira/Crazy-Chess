@@ -99,13 +99,16 @@ public class TableController implements Initializable{
                                                    
                         boolean key ;
                         key = actualPiece.movePiece(table, finalPositionX, finalPositionY);
-                        if(!key){
-                            System.out.println("Movimento Invalido.");
-                        }else{
+                        if(actualPiece.movePiece(table, finalPositionX, finalPositionY)){
                             gridTab.getChildren().remove(actualPiece);
                             gridTab.add(actualPiece, finalPositionY, finalPositionX );
+                            actualPiece.getTableParts().setPiece(null);
                             actualPiece.setTableParts(t);
+                            t.setPiece(actualPiece);
                             System.out.println("Movimento Aceito.");
+                        }else{
+                            
+                            System.out.println("Movimento Invalido");
                         }
                     }
                 }

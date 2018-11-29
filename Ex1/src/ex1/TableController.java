@@ -152,8 +152,8 @@ public class TableController implements Initializable{
         addEventesToPiece(L2);
    }
     
-    private void addStormPiece() throws FileNotFoundException{
-       StormPiece sP = new StormPiece("images/Stormtrooper.png", table[11][6], 1);
+    private void addStormPiece() throws FileNotFoundException{ // Generation StormPice
+       StormPiece sP = new StormPiece("images/Stormtrooper.png", table[11][6], 0);
        gridTab.add(sP, 11, 6);
        table[11][6].setPiece(sP);
        addEventesToPiece(sP);

@@ -11,109 +11,62 @@ import java.io.FileNotFoundException;
  *
  * @author Caique
  */
-<<<<<<< HEAD
 public class StormPiece extends Piece{
-=======
-public class StormPiece  {
->>>>>>> 4b82bef98dd0be495e50b4ccb5c204e833ec3548
 
     public StormPiece(String path, TableParts t, int team) throws FileNotFoundException {
-        
+        super(path, t, team);
     }
 
-<<<<<<< HEAD
     @Override
     public boolean Handler(TableParts[][] table, int x, int y) {
-        System.out.println("");
-        return false;
+        boolean  key=false;
+        if(table[x][y].getPiece()==null){
+            key = movePiece( table, x, y); 
+        }
+               
+        else if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()==team){
+            key = false;
+        }
+        else if((table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team)) {
+            key = attackMove( table, x , y);
+        }   
+        return key;
     }
 
     @Override
     public boolean movePiece(TableParts[][] table, int x, int y) {
-        if(!calculateMovePiece(table,x,y))return false;
-        
-        else return false;
+        if(calculateMovePiece(table,x,y)){
+            t=table[x][y];
+            
+            return true;
+        }
+        return false;
     }
 
     @Override
     protected boolean calculateMovePiece(TableParts[][] table, int x, int y) {
-        int xInit = t.getLocationX();
-        int yInit = t.getLocationY();
+        int xInit = t.getLocationX(); //Line
+        int yInit = t.getLocationY(); //Colune
         int i=xInit, j=yInit;
         int cont=0;
         
-        if(team == 2){
-            
-//            if((table[i-1][j+1]))
-            
-//            if((location[1]+1==y) && (location[0]-1==x)){ //Front and left
-//                if((location[1]+1 <= 14) && ((location[0]-1 >= 14))) return true;
-//            }
-//            if((location[1]+1==y)){ //Only Front
-//                if(location[1]+1 <= 14) return true;
-//            }
-//            if((location[1]+1==y) && (location[0]+1==x)){ //Front and Right
-//                if((location[1]+1 <= 14) && (location[0]+1 <= 14)) return true;
-//            }
-//            if(location[1]-1==y){ //Retreat
-//                if(location[1]-1 >= 14) return true;
-//            }
-//            return false;
-//        }
-//        
-//        if(team == 1){
-//            if(location[1]+1==y){ //Retreat
-//                if(location[1]+1 >= 14) return true;
-//            }
-//            if((location[1]-1==y)&& (location[0]-1==x)){ //Front and Left
-//                if((location[1]+1 >= 14) && (location[0]+1 >= 14)) return true;
-//            }
-//            if(location[1]-1==y){ //Only front
-//                if(location[1]+1 >= 14) return true;
-//            }
-//            if((location[1]-1==y)&& (location[0]+1==x)){ //Front and Right
-//                if((location[1]-1 >= 14) && (location[0]+1 <= 14)) return true;
-//            }
-//            return false;
-//            }
-//        return false;
-//        
-//        return false;
-    }
-
-    /*@Override
-    protected boolean attackMove(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
+        if(team == 1){
+            if(table[i-1][j-1].getPiece()==null || table[i-1][j].getPiece()==null || table[i-1][j+1].getPiece()==null || table[i+1][j].getPiece()==null){
+                
+            }else return false;
+        }
+        
+        if(team == 0){
+            if(table[i+1][j-1].getPiece()==null || table[i+1][j].getPiece()==null || table[i+1][j+1].getPiece()==null || table[i-1][j].getPiece()==null){
+                
+            }else return false;
+        }
+        
         return false;
- 
-}
+    }
 
     @Override
     protected boolean attackMove(TableParts[][] table, int x, int y) {
-=======
-    
-    public boolean movePiece(TableParts[][] t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    protected boolean calculateMovePiece(TableParts t ,int x ,int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    protected boolean attackMove(TableParts[][] t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    protected boolean calculeteAttackMove() {
->>>>>>> 4b82bef98dd0be495e50b4ccb5c204e833ec3548
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

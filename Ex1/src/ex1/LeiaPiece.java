@@ -43,32 +43,6 @@ public class LeiaPiece extends Piece{
     
 }
 
-    
-    protected boolean attackMove(TableParts t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    protected boolean calculeteAttackMove() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    public boolean movePiece(TableParts[][] t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    protected boolean calculateMovePiece(TableParts t ,int x ,int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-    protected boolean attackMove(TableParts[][] t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
 
     @Override
     protected boolean calculateMovePiece(TableParts[][] table, int x, int y) {

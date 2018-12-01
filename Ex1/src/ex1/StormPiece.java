@@ -17,7 +17,7 @@ public class StormPiece extends Piece{
         super(path, t, team);
     }
 
-    @Override
+    
     public boolean Handler(TableParts[][] table, int x, int y) {
         boolean  key=false;
         if(table[x][y].getPiece()==null){

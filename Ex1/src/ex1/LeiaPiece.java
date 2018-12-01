@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author Aluno
+ * @author Yasmim
  */
 public class LeiaPiece extends Piece{
 
@@ -19,12 +19,7 @@ public class LeiaPiece extends Piece{
     }
 
     
-    public boolean movePiece(TableParts t) {
-        if(!calculateMovePiece(t.getLocationX(),t.getLocationY()))return false;
-        
-        //else setLocation(t);
-        return false;
-    }
+   
 //Movimento: anda duas casas para frente e duas para o lado
 
     
@@ -57,10 +52,7 @@ public class LeiaPiece extends Piece{
     }
 
     
-    @Override
-    public boolean Handler(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     @Override
     public boolean movePiece(TableParts[][] table, int x, int y) {

@@ -2,8 +2,6 @@
 package ex1;
 
 import java.io.FileNotFoundException;
-import javafx.scene.layout.GridPane;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,23 +11,7 @@ public class MilleniumPiece extends Piece{
 
     public MilleniumPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
-    }
-
-     
-    public boolean  Handler(TableParts[][] table ,int x ,int y){
-        boolean  key=false;
-        if(table[x][y].getPiece()==null){
-            key = movePiece( table, x, y); 
-        }
-               
-        else if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()==team){
-            key = false;
-        }
-        else if((table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team)) {
-            key = attackMove( table, x , y);
-        }   
-        return key;
-    }
+    }   
         
     
     @Override
@@ -38,60 +20,109 @@ public class MilleniumPiece extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-//        boolean key=true;
-        int cont=0;
-        if(table[i][j+1].getPiece()==null || table[i][j-1].getPiece()==null){
-            if(y<j )j++;
-            if(y>j )j--;
-            
-            while(cont<4){
+        
+        if(i<=x && j<=y)return SEMove(table,x,y);//sudeste
+        if(i>=x && j<=y)return SOMove(table,x,y);//sudoeste
+        if(i>=x && j>=y)return NOMove(table,x,y);//noroeste
+        if(i<=x && j>=y)return NEMove(table,x,y);//nordeste
 
-                if(table[x][y]==table[i][j])return true;
-                else if(i<=x && j<=y) {
-                    if (table[i][j].getPiece()==null) {
+        return false;
+    }        
+    
+    private boolean SEMove(TableParts[][] table ,int x ,int y){
+        System.out.println("sudeste");
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit+1;
+        if(table[i][j].getPiece()==null){
+            int cont=0;
+            while(cont<=4){
+                if(table[i][j]==table[x][y])return true;
+                if (table[i][j].getPiece()==null) {
                         i++;
                         j++;
                     }else return false;
-                }
-                else if(i>=x && j<=y){
-                    if (table[i][j].getPiece()==null) {
-                        i--;
-                        j++;
-                    }else return false;
-
-                }
-                else if(i>=x && j>=y){
-                    if (table[i][j].getPiece()==null) {
-                        i--;
-                        j--;
-                    }else return false;
-
-                }
-                else if(i<=x && j>=y){
-                    if (table[i][j].getPiece()==null) {
-                        i++;
-                        j--;
-                    }else return false;
-                }
-                else return false;
                 cont++;
-
-
             }
+            return false;
+        
         }
         return false;
     }
-
+    
+    private boolean SOMove(TableParts[][] table ,int x ,int y){
+        System.out.println("sudoeste");
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        if(table[i][j+1].getPiece()==null){
+            j++;
+            int cont=0;
+            while(cont<=4){
+                if(table[i][j]==table[x][y])return true;
+                if (table[i][j].getPiece()==null) {
+                        i--;
+                        j++;
+                    }else return false;
+                cont++;
+            }
+            return false;
+        
+        }
+        return false;
+    }
+    
+    private boolean NOMove(TableParts[][] table ,int x ,int y){
+        System.out.println("noroeste");
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        if(table[i][j-1].getPiece()==null){
+            j--;
+            int cont=0;
+            while(cont<=4){
+                if(table[i][j]==table[x][y])return true;
+                else if(cont==0 && table[i][j].getPiece()==null){
+                    i--;
+                }
+                else if (table[i][j].getPiece()==null) {
+                        i--;
+                        j--;
+                    }else return false;
+                cont++;
+            }
+            return false;
+        
+        }else return false;
+        
+    }
+    
+    private boolean NEMove(TableParts[][] table ,int x ,int y){
+        System.out.println("nordeste");
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        if(table[i][j-1].getPiece()==null){
+            j--;
+            int cont=0;
+            while(cont<=4){
+                if(table[i][j]==table[x][y])return true;
+                if (table[i][j].getPiece()==null) {
+                        i++;
+                        j--;
+                    }else return false;
+                cont++;
+            }
+            return false;
+        
+        }
+        return false;
+    }
     
     @Override
     protected boolean attackMove(TableParts[][] t ,int x ,int y) {
-        //if(!calculateMovePiece(t.getLocationX(),t.getLocationY()))return false;
-        
-        
-        //setLocation(t);
-        
-        
-        return true;
+        if(calculeteAttackMove(t , x , y))return true;        
+        return false;
     }
     
 
@@ -108,7 +139,76 @@ public class MilleniumPiece extends Piece{
 
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        
+        if(i<=x && j<=y)return SEAttack(table,x,y);//sudeste
+        if(i>=x && j<=y)return SOAttack(table,x,y);//sudoeste
+        if(i>=x && j>=y)return NOAttack(table,x,y);//noroeste
+        if(i<=x && j>=y)return NEAttack(table,x,y);//nordeste
+        return false;
+        
+    }
+
+    private boolean SEAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && j<=13 ){
+            if(i==x && j==y)return true;
+            if(i==13 || j==13)return false;
+            if(table[i][j].getPiece()==null){
+                i--;
+                j++;
+            }
+        }
+        return false;
+    }
+
+    private boolean SOAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && j>=0 ){
+            if(i==x && j==y)return true;
+            if(i==13 || j==0)return false;
+            if(table[i][j].getPiece()==null){
+                i--;
+                j++;
+            }
+        }
+        return false;
+    }
+
+    private boolean NOAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i>=0 && y>=0){
+            if(i==x && j==y)return true;
+            if(i==0 || j==0)return false;
+            if(table[i][j].getPiece()==null){
+                i--;
+                j--;
+            }
+        }
+        return false;
+    }
+
+    private boolean NEAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && y>=0){
+            if(i==x && j==y)return true;
+            if(i==13 || j==0)return false;
+            if(table[i][j].getPiece()==null){
+                i++;
+                j--;
+            }
+        }
+        return false;
     }
 
     

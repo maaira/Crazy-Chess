@@ -1,7 +1,6 @@
 
 package ex1;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +28,7 @@ public class TableController implements Initializable{
     private GridPane gridTab;
     private TableParts[][] table;
     
-    private Piece actualPiece;
+    private Piece actualPiece, attackedPiece;
     private int initPositionX, initPositionY,finalPositionX,finalPositionY ;
     
     void montarGrid() throws FileNotFoundException{
@@ -61,16 +60,16 @@ public class TableController implements Initializable{
             for(int j=0;j<colunas;j++){               
                               
                 if((i%2==0 && j%2!=0) || (i%2!=0 && j%2==0)){ 
-                    t[i][j]= new TableParts( Color.DARKRED, i, j);
-                    addEventesToTable(t[i][j]);
-                    t[i][j].setPiece(null);
+                    t[j][i]= new TableParts( Color.DARKRED, j, i);
+                    addEventesToTable(t[j][i]);
+                    t[j][i].setPiece(null);
                 }
                 else {
-                    t[i][j]= new TableParts(Color.BISQUE, i, j);
-                    addEventesToTable(t[i][j]);
-                    t[i][j].setPiece(null);
+                    t[j][i]= new TableParts(Color.BISQUE, j, i);
+                    addEventesToTable(t[j][i]);
+                    t[j][i].setPiece(null);
                 }
-                gridTab.add(t[i][j], j,i);            
+                gridTab.add(t[j][i], j,i);            
                 
                 
             }
@@ -80,42 +79,40 @@ public class TableController implements Initializable{
         addPieces();
         bpMain.setCenter(gridTab);
     }
-    void reset(){
-         actualPiece=null;
-         
-         
-    }
+    
+    
     public void addEventesToTable(TableParts t1){
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("You clicked me!"); 
                 TableParts t= (TableParts) event.getSource();
-                if(t.getPiece()!=null){
+                if(attackedPiece!=null && attackedPiece.getTeam()!=actualPiece.getTeam() ){
+                    
                     
                 }else{                   
-                    
+                    System.out.println("Move.");
                     finalPositionX = t.getLocationX();
                     finalPositionY = t.getLocationY();
-                    if(actualPiece!=null){
-                                                   
-                        boolean key ;
-                        key = actualPiece.movePiece(table, finalPositionX, finalPositionY);
-                        if(actualPiece.movePiece(table, finalPositionX, finalPositionY)){
-                            gridTab.getChildren().remove(actualPiece);
-                            gridTab.add(actualPiece, finalPositionY, finalPositionX );
-                            actualPiece.getTableParts().setPiece(null);
-                            actualPiece.setTableParts(t);
-                            t.setPiece(actualPiece);
-                            System.out.println("Movimento Aceito.");
-                        }else{
+                    System.out.println("("+finalPositionX+","+ finalPositionY+")");
+                    if(actualPiece!=null && actualPiece.movePiece(table, finalPositionX, finalPositionY) ){
+                        System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
+                        
+                        gridTab.getChildren().remove(actualPiece);
+                        gridTab.add(actualPiece, finalPositionX, finalPositionY );
+                        actualPiece.getTableParts().setPiece(null);
+                        actualPiece.setTableParts(t);
+                        table[finalPositionX][finalPositionY].setPiece(actualPiece);
+                        actualPiece=null;
+                        System.out.println("Movimento Aceito.");
+                        
                             
-                            System.out.println("Movimento Invalido");
-                        }
+                            
                     }
                 }
-                
             }
+                
+            
    
    
         };
@@ -129,9 +126,9 @@ public class TableController implements Initializable{
     }
     
     public void addMilleniumFalcon() throws FileNotFoundException{
-        MilleniumPiece m = new MilleniumPiece("images/millenium_falcon.png", table[1][1], 1);
-        gridTab.add(m, 1, 1);
-        table[1][1].setPiece(m);
+        MilleniumPiece m = new MilleniumPiece("images/millenium_falcon.png", table[6][6], 1);
+        gridTab.add(m, 6, 6);
+        table[6][6].setPiece(m);
         addEventesToPiece(m);
         
         MilleniumPiece m2 = new MilleniumPiece("images/millenium_falcon.png", table[5][5], 0);
@@ -168,7 +165,8 @@ public class TableController implements Initializable{
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("You clicked a Piece!"); 
-                actualPiece = p;
+                if(actualPiece==null)actualPiece = p;
+                else attackedPiece =p;
             }
    
    
@@ -176,4 +174,5 @@ public class TableController implements Initializable{
         p.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandlerPiece);
     }
     
+   
 }

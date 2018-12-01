@@ -25,7 +25,7 @@ public abstract class Piece extends ImageView{
         setTam();
     }
 
-    public boolean isMove_status() {
+    public boolean getMove_status() {
         return move_status;
     }
 
@@ -61,7 +61,7 @@ public abstract class Piece extends ImageView{
         t.setPiece(this);
     }*/
 
-    public abstract boolean Handler(TableParts[][] table ,int x ,int y);
+    
     //function to move
     public abstract boolean movePiece(TableParts[][] table ,int x ,int y);
     //function to validate the movement of the piece

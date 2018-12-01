@@ -24,10 +24,6 @@ public class TableParts extends Rectangle{
     }
     
     
-    public int[] getLocation() {
-        return location;
-    }
-    
     public int getLocationX() {
         return location[0];
     }

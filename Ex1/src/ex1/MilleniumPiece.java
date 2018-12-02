@@ -82,9 +82,7 @@ public class MilleniumPiece extends Piece{
             int cont=0;
             while(cont<=4){
                 if(table[i][j]==table[x][y])return true;
-                else if(cont==0 && table[i][j].getPiece()==null){
-                    i--;
-                }
+                
                 else if (table[i][j].getPiece()==null) {
                         i--;
                         j--;

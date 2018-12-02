@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ex1;
+package ex1;    
 
 import java.io.FileNotFoundException;
+
 
 /**
  *
@@ -35,7 +36,7 @@ public class StormPiece extends Piece{
 
     @Override
     public boolean movePiece(TableParts[][] table, int x, int y) {
-        if(calculateMovePiece(table,x,y)){
+            if(calculateMovePiece(table,x,y)){
             t=table[x][y];
             
             return true;
@@ -48,30 +49,30 @@ public class StormPiece extends Piece{
         int xInit = t.getLocationX(); //Line
         int yInit = t.getLocationY(); //Colune
         int i=xInit, j=yInit;
-        int cont=0;
         
-        if(team == 1){
-            if(table[i-1][j-1].getPiece()==null || table[i-1][j].getPiece()==null || table[i-1][j+1].getPiece()==null || table[i+1][j].getPiece()==null){
-                
-            }else return false;
+        if(this.team == 1){ // Check for the left diagonal 
+            if(table[y][x].getPiece() == table[i-1][j-1].getPiece() && y == i-1 && x == j-1){
+                if(table[i-1][j-1].getPiece()==null){
+                    System.out.println("Movendo pra diagonal esquerda");
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
-        
-        if(team == 0){
-            if(table[i+1][j-1].getPiece()==null || table[i+1][j].getPiece()==null || table[i+1][j+1].getPiece()==null || table[i-1][j].getPiece()==null){
-                
-            }else return false;
-        }
-        
         return false;
     }
 
     @Override
     protected boolean attackMove(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 }

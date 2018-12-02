@@ -73,7 +73,7 @@ public class TableController implements Initializable{
             for(int j=0;j<colunas;j++){               
                               
                 if((i%2==0 && j%2!=0) || (i%2!=0 && j%2==0)){ 
-                    t[j][i]= new TableParts( Color.BLACK, j, i);
+                    t[j][i]= new TableParts( Color.GRAY, j, i);
                     addEventesToTable(t[j][i]);
                     t[j][i].setPiece(null);
                 }
@@ -162,11 +162,13 @@ public class TableController implements Initializable{
             public void handle(MouseEvent event) {
                 System.out.println("You clicked me!"); 
                 tclicked= (TableParts) event.getSource();
+                System.out.println(tclicked.getLocationX()+" , "+tclicked.getLocationY()); 
+                if(tclicked.getPiece()!=null)System.out.println("Has Piece."); 
                 if(actualPiece!= null && tclicked!=null && tclicked.getPiece()==null && attackedPiece==null){
                     Move();
                     
                 }else{
-                    Attack();
+                    //Attack();
                 }
             }
                 
@@ -185,7 +187,9 @@ public class TableController implements Initializable{
                 if(actualPiece==null && attackedPiece==null)actualPiece = p;
                 else attackedPiece =p;
                 if(attackedPiece!=null && attackedPiece.getTableParts()!=null && actualPiece!=null ){
-                    Attack();
+                    System.out.println("HasPiece!");
+                    System.out.println(attackedPiece.getTableParts().getLocationX()+" , "+attackedPiece.getTableParts().getLocationX());
+                    //Attack();
                 }
             }
    
@@ -252,11 +256,11 @@ public class TableController implements Initializable{
     
     private void addStormPiece() throws FileNotFoundException{ // Generation StormPice
        StormPiece sP = new StormPiece("images/Stormtrooper.png", table[11][6], 0);
-       gridTab.add(sP, 6, 11);
+       gridTab.add(sP, 11, 6);
        table[11][6].setPiece(sP);
        addEventesToPiece(sP);
        StormPiece sP2 = new StormPiece("images/Stormtrooper.png", table[11][9], 1);
-       gridTab.add(sP2, 9, 11);
+       gridTab.add(sP2, 11, 9);
        table[11][9].setPiece(sP2);
        addEventesToPiece(sP2);
     }

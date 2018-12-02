@@ -3,6 +3,7 @@ package ex1;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,10 +28,22 @@ public class TableController implements Initializable{
     private final int colunas = 14;
     private GridPane gridTab;
     private TableParts[][] table;
-    
+    private TableParts tclicked;
     private Piece actualPiece, attackedPiece;
     private int initPositionX, initPositionY,finalPositionX,finalPositionY ;
+    private Player player1,player2;
     
+    
+    void setPlayer(String p1,String p2){
+         
+        
+    
+    }
+    
+    void setTable(){
+    
+    
+    }
     void montarGrid() throws FileNotFoundException{
         GridPane gridTab = new GridPane();
         
@@ -60,7 +73,7 @@ public class TableController implements Initializable{
             for(int j=0;j<colunas;j++){               
                               
                 if((i%2==0 && j%2!=0) || (i%2!=0 && j%2==0)){ 
-                    t[j][i]= new TableParts( Color.DARKRED, j, i);
+                    t[j][i]= new TableParts( Color.BLACK, j, i);
                     addEventesToTable(t[j][i]);
                     t[j][i].setPiece(null);
                 }
@@ -80,35 +93,80 @@ public class TableController implements Initializable{
         bpMain.setCenter(gridTab);
     }
     
+    private void Move(){
+        System.out.println("Move.");
+        initPositionX =  actualPiece.getTableParts().getLocationX();
+        initPositionY =  actualPiece.getTableParts().getLocationY();
+        finalPositionX = tclicked.getLocationX();
+        finalPositionY = tclicked.getLocationY();
+        System.out.println("("+finalPositionX+","+ finalPositionY+")");
+        System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
+        
+        
+        if(actualPiece!=null && actualPiece.movePiece(table, finalPositionX, finalPositionY)==true ){
+            
+            System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
+                        
+            gridTab.getChildren().remove(actualPiece);
+            gridTab.add(actualPiece, finalPositionX, finalPositionY );
+            table[initPositionX][initPositionY].setPiece(null);
+            
+            actualPiece.setTableParts(tclicked);
+            table[finalPositionX][finalPositionY].setPiece(actualPiece);
+            actualPiece=null;
+            System.out.println("Movimento Aceito.");
+                        
+                            
+                            
+        }else System.out.println("Movimento Invalido."); 
+        reset();
+    }
+    
+    void reset(){
+        tclicked     = null;
+        attackedPiece= null;
+        actualPiece  = null;
+    }
+    private void Attack(){
+        System.out.println("Attack!"); 
+        if(tclicked!=null && tclicked.getPiece()!=null && attackedPiece==null ){
+            
+            finalPositionX = tclicked.getLocationX();
+            finalPositionY = tclicked.getLocationY();
+            if(actualPiece.attackMove(table,finalPositionX , finalPositionY)){
+                
+                gridTab.getChildren().remove(tclicked.getPiece());
+                tclicked.setPiece(null);
+                System.out.println("Attack realizado!"); 
+            }else System.out.println("Attack invalido!"); 
+            
+        }
+        if(tclicked==null && attackedPiece!=null){
+           
+            finalPositionX = attackedPiece.getTableParts().getLocationX();
+            finalPositionY = attackedPiece.getTableParts().getLocationY();
+            if(actualPiece.attackMove(table,finalPositionX , finalPositionY)){
+                attackedPiece.getTableParts().setPiece(null);
+                gridTab.getChildren().remove(attackedPiece);
+                System.out.println("Attack realizado!"); 
+            }else System.out.println("Attack invalido!"); 
+            
+        }
+        reset();
+        
+    }
     
     public void addEventesToTable(TableParts t1){
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("You clicked me!"); 
-                TableParts t= (TableParts) event.getSource();
-                if(attackedPiece!=null && attackedPiece.getTeam()!=actualPiece.getTeam() ){
+                tclicked= (TableParts) event.getSource();
+                if(actualPiece!= null && tclicked!=null && tclicked.getPiece()==null && attackedPiece==null){
+                    Move();
                     
-                    
-                }else{                   
-                    System.out.println("Move.");
-                    finalPositionX = t.getLocationX();
-                    finalPositionY = t.getLocationY();
-                    System.out.println("("+finalPositionX+","+ finalPositionY+")");
-                    if(actualPiece!=null && actualPiece.movePiece(table, finalPositionX, finalPositionY) ){
-                        System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
-                        
-                        gridTab.getChildren().remove(actualPiece);
-                        gridTab.add(actualPiece, finalPositionX, finalPositionY );
-                        actualPiece.getTableParts().setPiece(null);
-                        actualPiece.setTableParts(t);
-                        table[finalPositionX][finalPositionY].setPiece(actualPiece);
-                        actualPiece=null;
-                        System.out.println("Movimento Aceito.");
-                        
-                            
-                            
-                    }
+                }else{
+                    Attack();
                 }
             }
                 
@@ -119,10 +177,30 @@ public class TableController implements Initializable{
         t1.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
     }
     
+    public void addEventesToPiece(Piece p){
+        EventHandler<javafx.scene.input.MouseEvent> eventHandlerPiece = new EventHandler<javafx.scene.input.MouseEvent>() { 
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("You clicked a Piece!"); 
+                if(actualPiece==null && attackedPiece==null)actualPiece = p;
+                else attackedPiece =p;
+                if(attackedPiece!=null && attackedPiece.getTableParts()!=null && actualPiece!=null ){
+                    Attack();
+                }
+            }
+   
+   
+        };
+        p.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandlerPiece);
+    }
+    
     public void addPieces() throws FileNotFoundException{
         addMilleniumFalcon();
         addLeiaPiece();
         addStormPiece();
+        addHorse();
+        //addPion();
+        
     }
     
     public void addMilleniumFalcon() throws FileNotFoundException{
@@ -137,6 +215,29 @@ public class TableController implements Initializable{
         addEventesToPiece(m2);
     }
     
+    public void addPion() throws FileNotFoundException{
+        Pion m = new Pion("images/pion.png", table[0][0], 0);
+        gridTab.add(m, 0, 0);
+        table[0][0].setPiece(m);
+        addEventesToPiece(m);
+        
+        Pion m2 = new Pion("images/pion.png", table[12][12], 1);
+        gridTab.add(m2, 12, 12);
+        table[12][12].setPiece(m2);
+        addEventesToPiece(m2);
+    }
+    
+    public void addHorse() throws FileNotFoundException{
+        HorsePiece m = new HorsePiece("images/horse.png", table[7][7], 1);
+        gridTab.add(m, 7, 7);
+        table[7][7].setPiece(m);
+        addEventesToPiece(m);
+        
+        HorsePiece m2 = new HorsePiece("images/horse.png", table[8][8], 0);
+        gridTab.add(m2, 8, 8);
+        table[8][8].setPiece(m2);
+        addEventesToPiece(m2);
+    }
     public void addLeiaPiece() throws FileNotFoundException{
         LeiaPiece L = new LeiaPiece("images/Leia.png", table[2][2], 1);
         gridTab.add(L, 2, 2);
@@ -144,35 +245,25 @@ public class TableController implements Initializable{
         addEventesToPiece(L);
         
         LeiaPiece L2 = new LeiaPiece("images/Leia.png", table[10][0], 0);
-        gridTab.add(L2, 10, 0);
+        gridTab.add(L2, 0, 10);
         table[10][0].setPiece(L2);
         addEventesToPiece(L2);
    }
     
     private void addStormPiece() throws FileNotFoundException{ // Generation StormPice
        StormPiece sP = new StormPiece("images/Stormtrooper.png", table[11][6], 0);
-       gridTab.add(sP, 11, 6);
+       gridTab.add(sP, 6, 11);
        table[11][6].setPiece(sP);
        addEventesToPiece(sP);
        StormPiece sP2 = new StormPiece("images/Stormtrooper.png", table[11][9], 1);
-       gridTab.add(sP2, 11, 9);
+       gridTab.add(sP2, 9, 11);
        table[11][9].setPiece(sP2);
        addEventesToPiece(sP2);
     }
     
-   public void addEventesToPiece(Piece p){
-        EventHandler<javafx.scene.input.MouseEvent> eventHandlerPiece = new EventHandler<javafx.scene.input.MouseEvent>() { 
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("You clicked a Piece!"); 
-                if(actualPiece==null)actualPiece = p;
-                else attackedPiece =p;
-            }
+    
+    
    
-   
-        };
-        p.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandlerPiece);
-    }
     
    
 }

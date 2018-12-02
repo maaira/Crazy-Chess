@@ -8,10 +8,10 @@ import java.io.FileNotFoundException;
  */
 
 public class Pion extends Piece{
-
-    public Pion(String path, TableParts t, int team, boolean status) throws FileNotFoundException {
+    boolean move;
+    public Pion(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
-        this.setMove_status(status);
+        move = true;
     }
 
     
@@ -30,13 +30,15 @@ public class Pion extends Piece{
     @Override
     protected boolean calculateMovePiece(TableParts[][] table, int x, int y) {
         if(getTeam()==0){
-            if(getMove_status() && getTeam()==0){
+            if(move){
+                move=false;
                 return firtsMove0(table, x, y);
             }else{
                 return move0(table, x, y);
             } 
         }else{
-            if(getMove_status()){
+            if(move){
+                move=false;
                 return firtsMove1(table, x, y);
             }else{
                 return move1(table, x, y);
@@ -52,21 +54,10 @@ public class Pion extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        if(xInit!=x || yInit+2<=y)return false;
-        else{
-            int cont=1;
-            while(cont<=2){
-                if(table[i][j+cont].getPiece()==null){
-                    cont++;
-                }else return false;
-            }
-            if(table[i][j+cont]==table[x][y]){
-                this.setMove_status(false);
-                return true;
-            }
+        if(i!=x || j+2<y)return false;
+        if(i==x && j+2<=y)return true;
+        else return false;
         }
-        return false;
-    }
     
     private boolean move0(TableParts[][] table, int x, int y){
         int xInit = t.getLocationX();
@@ -76,6 +67,26 @@ public class Pion extends Piece{
         return false;
     }
     
+    private boolean move1(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        
+        if(table[xInit][yInit-1]==table[x][y])return true;
+        return false;
+    }
+
+    private boolean firtsMove1(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        
+        if(xInit!=x || yInit+2<=y)return false;
+        if(i!=x || j-2>y)return false;
+        if(i==x && j-2<=y)return true;
+        
+        return false;
+        
+    }
     
     @Override
     protected boolean attackMove(TableParts[][] table, int x, int y) {
@@ -93,32 +104,6 @@ public class Pion extends Piece{
         
     }
 
-    private boolean move1(TableParts[][] table, int x, int y) {
-        int xInit = t.getLocationX();
-        int yInit = t.getLocationY();
-        
-        if(table[xInit][yInit-1]==table[x][y])return true;
-        return false;
-    }
-
-    private boolean firtsMove1(TableParts[][] table, int x, int y) {
-        int xInit = t.getLocationX();
-        int yInit = t.getLocationY();
-        int i=xInit, j=yInit;
-        if(xInit!=x || yInit+2<=y)return false;
-        else{
-            int cont=1;
-            while(cont<=2){
-                if(table[i][j-cont].getPiece()==null){
-                    cont++;
-                }else return false;
-            }
-            if(table[i][j+cont]==table[x][y]){
-                this.setMove_status(false);
-                return true;
-            }
-        }
-        return false;
-    }
+    
 
 }

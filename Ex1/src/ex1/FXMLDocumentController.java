@@ -25,9 +25,12 @@ import javafx.stage.Stage;
  * @author Pedro Felipe
  */
 public class FXMLDocumentController implements Initializable {
-    
+    @FXML TextField user1;
+    @FXML TextField user2;
+
     private Label label;
     Parent root;
+    String nome1, nome2;
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -40,11 +43,11 @@ public class FXMLDocumentController implements Initializable {
             //stage.initStyle(StageStyle.UNDECORATED);            
             stage.setTitle("Table");
             stage.setScene(new Scene(root, 50*14, 50*14));
-
+            
             TableController controller = fxmlLoader.<TableController>getController();
+            //controller.setPlayer(user1.getText(), user2.getText());
             controller.montarGrid();
-            //controller.addPieces();
-           
+                       
 
             stage.show();
             // Esconde a janela atual
@@ -56,6 +59,7 @@ public class FXMLDocumentController implements Initializable {
             label.setText("Erro ao chamar a Table!" + e.getMessage());
         }
     }
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

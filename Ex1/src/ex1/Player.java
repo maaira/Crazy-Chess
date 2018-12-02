@@ -21,7 +21,7 @@ public class Player {
         return team;
     }
 
-    public Player(ArrayList piece, int team) {
+    public Player(String nome, ArrayList piece, int team) {
         this.piece = piece;
         this.team = team;
     }

@@ -23,26 +23,58 @@ public class LeiaPiece extends Piece{
 //Movimento: anda duas casas para frente e duas para o lado
 
     
-    protected boolean calculateMovePiece(int x, int y) {
-        return false;
-/*       if((location[1]+1==y) && ( location[0]==x)) return true;
-        if((location[1]+2==y) && ((location[0]==x)))return true;
-        if((location[1]+2==y) && ((location[0]+1==x))) return true;
-        if((location[1]+2==y) && ((location[0]-1==x))) return true;
-        if((location[1]+2==y) && ((location[0]+2==x))) return true;
-        if((location[1]+2==y) && ((location[0]-2==x))) return true; 
+    protected boolean calculateMovePiece(TableParts[][]table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
         
-        else return false;
-    }*/
-//Ataque: atira para as quatro direções (N, S, L, O)
+        int cont=0;     
+        if(table[x][y]!=table[i+2][j+2] || table[x][y]!=table[i-2][j-2] || table[x][y]!=table[i-2][j+2] || table[x][y]!=table[i+2][j-2])return false;    
+        
+        /*if(i <= x && j <= y);//sudeste
+        if(i <= x && j >= y);//nordeste
+        if(i >= x && j >= y);//noroeste
+        if(i >= x && j <= y);//noroeste
+        while(cont <= 3){
+
+                if(table[x][y] ==  table[i][j])return true;
+                else if(i <= x && j <= y) {
+                    if (table[i][j].getPiece()==null) {
+                        
+                    }else return false;
+                }
+                else if(i > x && j < y){
+                    if (table[i][j].getPiece()== null) {
+                        i = i+2;
+                        j = j-2;
+                    }else return false;
+
+                }
+                else if(i < x && j > y){
+                    if (table[i][j].getPiece() == null) {
+                        i = i-2;
+                        j = j+2;
+                    }else return false;
+
+                }
+                else if(i > x && j > y){
+                    if (table[i][j].getPiece() == null) {
+                        i = i+2;
+                        j = j+2;
+                    }else return false;
+                }
+                else return false;
+                cont++;
+
+
+            }
+        }*/
+        return false;
     
 }
 
 
-    @Override
-    protected boolean calculateMovePiece(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     
 

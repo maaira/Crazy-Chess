@@ -128,9 +128,9 @@ public class TableController implements Initializable{
         actualPiece  = null;
     }
     private void Attack(){
-        System.out.println("Attack!"); 
-        if(tclicked!=null && tclicked.getPiece()!=null && attackedPiece==null ){
-            
+        
+        /*if(tclicked!=null && tclicked.getPiece()!=null && attackedPiece==null ){
+            System.out.println("Attack Table!"); 
             finalPositionX = tclicked.getLocationX();
             finalPositionY = tclicked.getLocationY();
             if(actualPiece.attackMove(table,finalPositionX , finalPositionY)){
@@ -140,13 +140,13 @@ public class TableController implements Initializable{
                 System.out.println("Attack realizado!"); 
             }else System.out.println("Attack invalido!"); 
             
-        }
-        if(tclicked==null && attackedPiece!=null){
-           
+        }*/
+        if(attackedPiece!=null && actualPiece!=null){
+           System.out.println("Attack!"); 
             finalPositionX = attackedPiece.getTableParts().getLocationX();
             finalPositionY = attackedPiece.getTableParts().getLocationY();
             if(actualPiece.attackMove(table,finalPositionX , finalPositionY)){
-                attackedPiece.getTableParts().setPiece(null);
+                table[finalPositionX][finalPositionY].setPiece(null);
                 gridTab.getChildren().remove(attackedPiece);
                 System.out.println("Attack realizado!"); 
             }else System.out.println("Attack invalido!"); 
@@ -168,7 +168,7 @@ public class TableController implements Initializable{
                     Move();
                     
                 }else{
-                    //Attack();
+                    Attack();
                 }
             }
                 
@@ -189,7 +189,7 @@ public class TableController implements Initializable{
                 if(attackedPiece!=null && attackedPiece.getTableParts()!=null && actualPiece!=null ){
                     System.out.println("HasPiece!");
                     System.out.println(attackedPiece.getTableParts().getLocationX()+" , "+attackedPiece.getTableParts().getLocationX());
-                    //Attack();
+                    Attack();
                 }
             }
    
@@ -204,6 +204,7 @@ public class TableController implements Initializable{
         addStormPiece();
         addHorse();
         addDarthPiece();
+        addHanPiece();
         //addPion();
         
     }
@@ -262,7 +263,7 @@ public class TableController implements Initializable{
         addEventesToPiece(L);
         
         LeiaPiece L2 = new LeiaPiece("images/Leia.png", table[10][0], 0);
-        gridTab.add(L2, 0, 10);
+        gridTab.add(L2, 10, 0);
         table[10][0].setPiece(L2);
         addEventesToPiece(L2);
    }
@@ -279,7 +280,17 @@ public class TableController implements Initializable{
        addEventesToPiece(sP2);
     }  
     
-   
+   public void addHanPiece() throws FileNotFoundException{
+        HanPiece m = new HanPiece("images/han_solo.jpeg", table[9][6], 1);
+        gridTab.add(m, 9, 6);
+        table[9][6].setPiece(m);
+        addEventesToPiece(m);
+        
+        HanPiece m2 = new HanPiece("images/han_solo.jpeg", table[8][5], 0);
+        gridTab.add(m2, 8, 5);
+        table[8][5].setPiece(m2);
+        addEventesToPiece(m2);
+    }
     
    
 }

@@ -179,11 +179,11 @@ public class DarthPiece extends Piece{
 
     @Override
     protected boolean attackMove(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 }

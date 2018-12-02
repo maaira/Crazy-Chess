@@ -19,7 +19,7 @@
          </font>
       </Label>
       <Button layoutX="132.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseClicked="#handleButtonAction" text="Iniciar" />
-      <TextField layoutX="67.0" layoutY="100.0" />
-      <TextField layoutX="69.0" layoutY="62.0" />
+      <TextField fx:id="user2" layoutX="67.0" layoutY="100.0" />
+      <TextField fx:id="user1" layoutX="69.0" layoutY="62.0" />
    </children>
 </AnchorPane>

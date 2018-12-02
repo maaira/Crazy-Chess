@@ -22,42 +22,48 @@ public class LeiaPiece extends Piece{
    
 //Movimento: anda duas casas para frente e duas para o lado
 
-    
+    @Override
     protected boolean calculateMovePiece(TableParts[][]table, int x, int y) {
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
-        int i=xInit, j=yInit;
+        int i=xInit, j=yInit;       
+             
+        //if((i+2!=x && j+2!=y) ||(i-2!=x && j+2!=y)|| (i+2!=x && j-2!=y) || (i-2!=x && j-2!=y))return false;  
+        if(i<=x && j<=y)return SEMove(table,x,y);//sudeste
+        if(i>=x && j<=y)return SOMove(table,x,y);//sudoeste
+        if(i>=x && j>=y)return NOMove(table,x,y);//noroeste
+        if(i<=x && j>=y)return NEMove(table,x,y);//nordeste        
         
-        int cont=0;     
-        if(table[x][y]!=table[i+2][j+2] || table[x][y]!=table[i-2][j-2] || table[x][y]!=table[i-2][j+2] || table[x][y]!=table[i+2][j-2])return false;    
-        
-        /*if(i <= x && j <= y);//sudeste
-        if(i <= x && j >= y);//nordeste
-        if(i >= x && j >= y);//noroeste
-        if(i >= x && j <= y);//noroeste
-        while(cont <= 3){
+       
 
-                if(table[x][y] ==  table[i][j])return true;
-                else if(i <= x && j <= y) {
-                    if (table[i][j].getPiece()==null) {
-                        
-                    }else return false;
+                /*if(x==i && j==y)return true;
+                if(i <= x && j <= y) {//sudeste
+                    if(cont<2){
+                        if (table[i][j].getPiece()==null) {
+                            j++;
+                        }else return false;
+                    }else{
+                        if (table[i][j].getPiece()==null) {
+                            i++;
+                        }else return false;
+                    }
+                    
                 }
-                else if(i > x && j < y){
+                else if(i >= x && j <= y){//noroeste
                     if (table[i][j].getPiece()== null) {
                         i = i+2;
                         j = j-2;
                     }else return false;
 
                 }
-                else if(i < x && j > y){
+                else if(i <= x && j >= y){//nordeste
                     if (table[i][j].getPiece() == null) {
                         i = i-2;
                         j = j+2;
                     }else return false;
 
                 }
-                else if(i > x && j > y){
+                else if(i > x && j > y){//sudoeste
                     if (table[i][j].getPiece() == null) {
                         i = i+2;
                         j = j+2;
@@ -67,32 +73,160 @@ public class LeiaPiece extends Piece{
                 cont++;
 
 
-            }
-        }*/
+            }*/
+       
+        
         return false;
-    
-}
-
-
-    
-
-    
-
-    @Override
-    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
-   
 
     @Override
     public boolean movePiece(TableParts[][] table, int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(calculateMovePiece(table,x,y)){
+            t=table[x][y];
+            
+            return true;
+        }
+        return false;
     }
 
     @Override
     protected boolean attackMove(TableParts[][] table, int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
+        return false;
+    }
+
+    private boolean SEMove(TableParts[][] table, int x, int y) {
+        
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        
+        if((i+2!=x && j+2!=y))return false;
+        
+        else{
+            
+            j++;
+            int cont=0;
+            if (table[i][j].getPiece()!=null)return false;
+            while(cont<=3){           
+                if(i==x && j==y)return true;
+                if(cont<1){
+                    if (table[i][j].getPiece()==null) {j++;}
+                    else return false;
+                }else{
+                    if (table[i][j].getPiece()==null) {i++;}
+                    else return false;
+                
+                }
+                
+                cont++;  
+            }
+        }
+        
+        return false;
+    }
+
+    private boolean SOMove(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        
+        if((i-2!=x && j+2!=y))return false;
+        
+        else{
+            
+            j++;
+            int cont=0;
+            if (table[i][j].getPiece()!=null)return false;
+            while(cont<=3){           
+                if(i==x && j==y)return true;
+                if(cont<1){
+                    if (table[i][j].getPiece()==null) {j++;}
+                    else return false;
+                }else{
+                    if (table[i][j].getPiece()==null) {i--;}
+                    else return false;
+                
+                }
+                
+                cont++;  
+            }
+        }
+        
+        return false;
+    }
+
+    private boolean NOMove(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        
+        if((i-2!=x && j-2!=y))return false;
+        
+        else{
+            
+            j--;
+            int cont=0;
+            if (table[i][j].getPiece()!=null)return false;
+            while(cont<=3){           
+                if(i==x && j==y)return true;
+                if(cont<1){
+                    if (table[i][j].getPiece()==null) {j--;}
+                    else return false;
+                }else{
+                    if (table[i][j].getPiece()==null) {i--;}
+                    else return false;
+                
+                }
+                
+                cont++;  
+            }
+        }
+        
+        return false;
+    }
+
+    private boolean NEMove(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        
+        if((i+2!=x && j-2!=y))return false;
+        
+        else{
+            
+            j--;
+            int cont=0;
+            if (table[i][j].getPiece()!=null)return false;
+            while(cont<=3){           
+                if(i==x && j==y)return true;
+                if(cont<1){
+                    if (table[i][j].getPiece()==null) {j--;}
+                    else return false;
+                }else{
+                    if (table[i][j].getPiece()==null) {i++;}
+                    else return false;
+                
+                }
+                
+                cont++;  
+            }
+        }
+        
+        return false;
+    }
+        
+    
 }
+
+
+    
+
+    
+
+    
+

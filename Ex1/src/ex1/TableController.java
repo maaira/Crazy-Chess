@@ -203,8 +203,21 @@ public class TableController implements Initializable{
         addLeiaPiece();
         addStormPiece();
         addHorse();
+        addDarthPiece();
         //addPion();
         
+    }
+    
+    public void addDarthPiece() throws FileNotFoundException{
+        DarthPiece dv = new DarthPiece("images/Darth_Vader.jpeg", table[0][5], 1);
+        gridTab.add(dv, 0, 5);
+        table[0][5].setPiece(dv);
+        addEventesToPiece(dv);
+        
+        DarthPiece dv2 = new DarthPiece("images/Darth_Vader.jpeg", table[0][8], 0);
+        gridTab.add(dv2, 0, 8);
+        table[0][8].setPiece(dv2);
+        addEventesToPiece(dv2);
     }
     
     public void addMilleniumFalcon() throws FileNotFoundException{
@@ -259,13 +272,12 @@ public class TableController implements Initializable{
        gridTab.add(sP, 11, 6);
        table[11][6].setPiece(sP);
        addEventesToPiece(sP);
+       
        StormPiece sP2 = new StormPiece("images/Stormtrooper.png", table[11][9], 1);
        gridTab.add(sP2, 11, 9);
        table[11][9].setPiece(sP2);
        addEventesToPiece(sP2);
-    }
-    
-    
+    }  
     
    
     

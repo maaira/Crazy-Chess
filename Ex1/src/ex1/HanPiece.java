@@ -16,8 +16,6 @@ public class HanPiece extends Piece {
         super(path, t, team);
     }   
     
-        
-    
     @Override
     protected boolean calculateMovePiece(TableParts[][] table ,int x ,int y) {
         
@@ -37,12 +35,42 @@ public class HanPiece extends Piece {
             else return false;
             
         }
+        if (i+3==x && j-3==y){
+            while(cont<3){
+                i++;
+                j--;
+                if(table[i][j].getPiece()!=null)return false;
+                cont++;
+            }
+            if(i==x && j==y)return true;
+            else return false;
+            
+        }
+        if (i-3==x && j+3==y){
+            while(cont<3){
+                i--;
+                j++;
+                if(table[i][j].getPiece()!=null)return false;
+                cont++;
+            }
+            if(i==x && j==y)return true;
+            else return false;
+            
+        }
+        if (i-3==x && j-3==y){
+            while(cont<3){
+                i--;
+                j--;
+                if(table[i][j].getPiece()!=null)return false;
+                cont++;
+            }
+            if(i==x && j==y)return true;
+            else return false;
+            
+        }
            
         return false;
     } 
-        
-    
-
     
     @Override
     protected boolean attackMove(TableParts[][] t ,int x ,int y) {
@@ -60,13 +88,9 @@ public class HanPiece extends Piece {
         return false;
     }
     
-
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
         return false;
     }
 
-    
-    
 }
-

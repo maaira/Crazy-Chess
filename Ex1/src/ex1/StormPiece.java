@@ -50,14 +50,68 @@ public class StormPiece extends Piece{
         int yInit = t.getLocationY(); //Colune
         int i=xInit, j=yInit;
         
+        //Time 1 = From bottom to top
         if(this.team == 1){ // Check for the left diagonal 
-            if(table[y][x].getPiece() == table[i-1][j-1].getPiece() && y == i-1 && x == j-1){
+            if(x == i-1 && y == j-1){
                 if(table[i-1][j-1].getPiece()==null){
                     System.out.println("Movendo pra diagonal esquerda");
                     return true;
                 }
                 return false;
-                // Riccardo eh lindo
+            }
+            if(x == i && y == j-1){ //Check forward
+                if(table[i][j-1].getPiece()==null){
+                    System.out.println("Movendo pra frente");
+                    return true;
+                }
+                return false;
+            }
+            if(x == i+1 && y == j-1){ //Checking for the right diagonal
+                if(table[i+1][j-1].getPiece()==null){
+                    System.out.println("Movendo pra diagonal direita");
+                    return true;
+                }
+                return false;
+            }
+            if(x == i && y == j+1){ //Backward check
+                if(table[i][j+1].getPiece()==null){
+                    System.out.println("Movendo pra trás");
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+        
+        //Time 0 = From top to bottom
+        if(this.team == 0){ // Check for the left diagonal 
+            if(x == i-1 && y == j+1){
+                if(table[i-1][j+1].getPiece()==null){
+                    System.out.println("Movendo pra diagonal esquerda");
+                    return true;
+                }
+                return false;
+            }
+            if(x == i && y == j+1){ //Check forward
+                if(table[i][j+1].getPiece()==null){
+                    System.out.println("Movendo pra frente");
+                    return true;
+                }
+                return false;
+            }
+            if(x == i+1 && y == j+1){
+                if(table[i+1][j+1].getPiece()==null){ //Checking for the right diagonal
+                    System.out.println("Movendo pra diagonal direita");
+                    return true;
+                }
+                return false;
+            }
+            if(x == i && y == j-1){ //Backward check
+                if(table[i][j-1].getPiece()==null){
+                    System.out.println("Movendo pra trás");
+                    return true;
+                }
+                return false;
             }
             return false;
         }
@@ -66,8 +120,12 @@ public class StormPiece extends Piece{
 
     @Override
     protected boolean attackMove(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        
+        
         return false;
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

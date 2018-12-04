@@ -168,14 +168,13 @@ public class MilleniumPiece extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        while(i<=13 && j>=0 ){
+        while(i>=0 && j<=13 ){
+            i--;
+            j++;            
             if(i==x && j==y)return true;
-            if(i<0 || j>0)return false;
-            if(i<x || j>y)return false;
-            if(table[i][j].getPiece()==null){
-                i--;
-                j++;
-            }
+            //if(i>13 || j>13)return false;
+            //if(i>x || j>y)return false;
+            if(table[i][j].getPiece()!=null)return false;
         }
         return false;
     }
@@ -184,15 +183,15 @@ public class MilleniumPiece extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        while(i>=0 && y>=0){
+        while(i>=0 && j>=0 ){
+            i--;
+            j--;            
             if(i==x && j==y)return true;
-            if(i<0 || j<0)return false;
-            if(i<x || j<y)return false;
-            if(table[i][j].getPiece()==null){
-                i--;
-                j--;
-            }
+            //if(i<13 || j>13)return false;
+            //if(i>x || j>y)return false;
+            if(table[i][j].getPiece()!=null)return false;
         }
+        
         return false;
     }
 
@@ -201,13 +200,12 @@ public class MilleniumPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         while(i<=13 && y>=0){
+            i++;
+            j--;
             if(i==x && j==y)return true;
-            if(i>13 || j<0)return false;
-            if(i>x || j<y)return false;
-            if(table[i][j].getPiece()==null){
-                i++;
-                j--;
-            }
+            //if(i>13 || j<0)return false;
+            //if(i>x || j<y)return false;
+            if(table[i][j].getPiece()!=null)return false;
         }
         return false;
     }

@@ -16,8 +16,6 @@ public class HanPiece extends Piece {
         super(path, t, team);
     }   
     
-        
-    
     @Override
     protected boolean calculateMovePiece(TableParts[][] table ,int x ,int y) {
         
@@ -73,9 +71,6 @@ public class HanPiece extends Piece {
            
         return false;
     } 
-        
-    
-
     
     @Override
     protected boolean attackMove(TableParts[][] t ,int x ,int y) {
@@ -93,7 +88,6 @@ public class HanPiece extends Piece {
         return false;
     }
     
-
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
         return false;

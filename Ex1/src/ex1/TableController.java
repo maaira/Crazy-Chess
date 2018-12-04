@@ -160,7 +160,7 @@ public class TableController implements Initializable{
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("You clicked me!"); 
+                System.out.println("You clicked me!"+event.getButton().name()); 
                 tclicked= (TableParts) event.getSource();
                 System.out.println(tclicked.getLocationX()+" , "+tclicked.getLocationY()); 
                 if(tclicked.getPiece()!=null)System.out.println("Has Piece."); 
@@ -269,15 +269,15 @@ public class TableController implements Initializable{
    }
     
     private void addStormPiece() throws FileNotFoundException{ // Generation StormPice
-       StormPiece sP = new StormPiece("images/Stormtrooper.png", table[11][6], 0);
-       gridTab.add(sP, 11, 6);
-       table[11][6].setPiece(sP);
+       StormPiece sP = new StormPiece("images/Stormtrooper.png", table[11][8], 0);
+       gridTab.add(sP, 11, 8);
+       table[11][8].setPiece(sP);
        addEventesToPiece(sP);
        
-       StormPiece sP2 = new StormPiece("images/Stormtrooper.png", table[11][9], 1);
-       gridTab.add(sP2, 11, 9);
-       table[11][9].setPiece(sP2);
-       addEventesToPiece(sP2);
+       StormPiece rP = new StormPiece("images/rebel.png", table[11][9], 1);
+       gridTab.add(rP, 11, 9);
+       table[11][9].setPiece(rP);
+       addEventesToPiece(rP);
     }  
     
    public void addHanPiece() throws FileNotFoundException{

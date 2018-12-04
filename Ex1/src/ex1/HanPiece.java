@@ -37,6 +37,39 @@ public class HanPiece extends Piece {
             else return false;
             
         }
+        if (i+3==x && j-3==y){
+            while(cont<3){
+                i++;
+                j--;
+                if(table[i][j].getPiece()!=null)return false;
+                cont++;
+            }
+            if(i==x && j==y)return true;
+            else return false;
+            
+        }
+        if (i-3==x && j+3==y){
+            while(cont<3){
+                i--;
+                j++;
+                if(table[i][j].getPiece()!=null)return false;
+                cont++;
+            }
+            if(i==x && j==y)return true;
+            else return false;
+            
+        }
+        if (i-3==x && j-3==y){
+            while(cont<3){
+                i--;
+                j--;
+                if(table[i][j].getPiece()!=null)return false;
+                cont++;
+            }
+            if(i==x && j==y)return true;
+            else return false;
+            
+        }
            
         return false;
     } 
@@ -66,7 +99,4 @@ public class HanPiece extends Piece {
         return false;
     }
 
-    
-    
 }
-

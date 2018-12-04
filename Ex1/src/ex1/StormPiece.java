@@ -57,6 +57,14 @@ public class StormPiece extends Piece{
                     System.out.println("Movendo pra diagonal esquerda");
                     return true;
                 }
+//                else{
+//                    if(table[x][y].getPiece().getTeam() == 0){
+//                        table[i][j].getPiece().attackMove(table, x, y);
+//                    }else return false;   ----> essa parte comentada deveria entrar enquanto a casa não tivesse nula 
+//                                                  e verificasse se a peça eh do time inimigo, 
+//                                                  se fosse era para comer, mas esse caralho não tá 
+//                                                  comendo nada e nem ninguém, parece até Marcos kkkkkkk
+//                }
                 return false;
             }
             if(x == i && y == j-1){ //Check forward
@@ -120,18 +128,18 @@ public class StormPiece extends Piece{
 
     @Override
     protected boolean attackMove(TableParts[][] table, int x, int y) {
-        int xInit = t.getLocationX();
-        int yInit = t.getLocationY();
-        int i=xInit, j=yInit;
-        
-        
-        return false;
+        return calculeteAttackMove(table , x , y);
     }
 
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX(); //Line
+        int yInit = t.getLocationY(); //Colune
+        int i=xInit, j=yInit;
+        /*
+        Pode ser feita uma verificação em um else dento de calculateMovePiece e aqui fazer a ação de remover a peça;
+        Vai ter que ser feita uma verifição por time (0 e 1);
+        */
         return false;
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

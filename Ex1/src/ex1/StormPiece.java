@@ -57,6 +57,7 @@ public class StormPiece extends Piece{
                     return true;
                 }
                 return false;
+                // Riccardo eh lindo
             }
             return false;
         }

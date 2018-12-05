@@ -15,10 +15,10 @@ import javafx.scene.layout.GridPane;
  */
 public class StormPiece extends Piece{
     
-     /*
+    /*
     --------------------------------------------CONSTRUCTOR----------------------------------------------------------
     */
-
+    
     public StormPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }
@@ -30,14 +30,8 @@ public class StormPiece extends Piece{
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
             if(calculateMovePiece(table,x,y)){
-            p.getChildren().remove(this);
-            p.add(this,x,y);
-            if(table[x][y].getPiece()!=null){
-                p.getChildren().remove(table[x][y].getPiece());
-            }
-            table[x][y].setPiece(this);
-            t = table[x][y];      
-                
+            t=table[x][y];
+            
             return true;
         }
         return false;
@@ -59,32 +53,35 @@ public class StormPiece extends Piece{
                 if(table[i-1][j-1].getPiece()==null){
                     System.out.println("Movendo pra diagonal esquerda");
                     return true;
-                }
+                }else if(table[i-1][j-1].getPiece()!=null && table[i-1][j-1].getPiece().getTeam()==0)return true;
                 return false;
             }
+                
+            
             if(x == i && y == j-1){ //Check forward
                 if(table[i][j-1].getPiece()==null){
                     System.out.println("Movendo pra frente");
                     return true;
-                }
+                }else if(table[i][j-1].getPiece()!=null && table[i][j-1].getPiece().getTeam()==0)return true;
                 return false;
             }
             if(x == i+1 && y == j-1){ //Checking for the right diagonal
                 if(table[i+1][j-1].getPiece()==null){
                     System.out.println("Movendo pra diagonal direita");
                     return true;
-                }
+                }else if(table[i+1][j-1].getPiece()!=null && table[i+1][j-1].getPiece().getTeam()==0)return true;
                 return false;
             }
             if(x == i && y == j+1){ //Backward check
                 if(table[i][j+1].getPiece()==null){
                     System.out.println("Movendo pra trás");
                     return true;
-                }
+                }else if(table[i][j+1].getPiece()!=null && table[i][j+1].getPiece().getTeam()==0)return true;
                 return false;
             }
             return false;
         }
+        
         
         //Time 0 = From top to bottom
         if(this.team == 0){ // Check for the left diagonal 
@@ -92,28 +89,28 @@ public class StormPiece extends Piece{
                 if(table[i-1][j+1].getPiece()==null){
                     System.out.println("Movendo pra diagonal esquerda");
                     return true;
-                }
+                }else if(table[i-1][j+1].getPiece()==null && table[i-1][j+1].getPiece().getTeam()==1)return true;
                 return false;
             }
             if(x == i && y == j+1){ //Check forward
                 if(table[i][j+1].getPiece()==null){
                     System.out.println("Movendo pra frente");
                     return true;
-                }
+                }else if(table[i][j+1].getPiece()!=null && table[i][j+1].getPiece().getTeam()==1)return true;
                 return false;
             }
             if(x == i+1 && y == j+1){
                 if(table[i+1][j+1].getPiece()==null){ //Checking for the right diagonal
                     System.out.println("Movendo pra diagonal direita");
                     return true;
-                }
+                }else if(table[i+1][j+1].getPiece()!=null && table[i+1][j+1].getPiece().getTeam()==1)return true;
                 return false;
             }
             if(x == i && y == j-1){ //Backward check
                 if(table[i][j-1].getPiece()==null){
                     System.out.println("Movendo pra trás");
                     return true;
-                }
+                }else if(table[i][j-1].getPiece()!=null && table[i][j-1].getPiece().getTeam()==1)return true;
                 return false;
             }
             return false;

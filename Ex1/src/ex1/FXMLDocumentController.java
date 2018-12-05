@@ -42,7 +42,7 @@ public class FXMLDocumentController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             //stage.initStyle(StageStyle.UNDECORATED);            
             stage.setTitle("Table");
-            stage.setScene(new Scene(root, 50*14, 50*14));
+            stage.setScene(new Scene(root, 50*20, 50*14));
             
             TableController controller = fxmlLoader.<TableController>getController();
             //controller.setPlayer(user1.getText(), user2.getText());

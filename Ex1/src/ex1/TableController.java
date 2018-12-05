@@ -161,31 +161,18 @@ public class TableController implements Initializable{
         attackedPiece= null;
         actualPiece  = null;
     }
-    private void Attack(){
+    private void Attack(){        
+            
+        System.out.println("Attack!"); 
+        finalPositionX = attackedPiece.getTableParts().getLocationX();
+        finalPositionY = attackedPiece.getTableParts().getLocationY();
+        if(actualPiece.attackMove(gridTab,table,finalPositionX , finalPositionY)){
+            table[finalPositionX][finalPositionY].setPiece(null);
+            gridTab.getChildren().remove(attackedPiece);
+             System.out.println("Attack realizado!"); 
+       }else System.out.println("Attack invalido!");     
+            
         
-        /*if(tclicked!=null && tclicked.getPiece()!=null && attackedPiece==null ){
-            System.out.println("Attack Table!"); 
-            finalPositionX = tclicked.getLocationX();
-            finalPositionY = tclicked.getLocationY();
-            if(actualPiece.attackMove(table,finalPositionX , finalPositionY)){
-                
-                gridTab.getChildren().remove(tclicked.getPiece());
-                tclicked.setPiece(null);
-                System.out.println("Attack realizado!"); 
-            }else System.out.println("Attack invalido!"); 
-            
-        }*/
-        if(attackedPiece!=null && actualPiece!=null){
-           System.out.println("Attack!"); 
-            finalPositionX = attackedPiece.getTableParts().getLocationX();
-            finalPositionY = attackedPiece.getTableParts().getLocationY();
-            if(actualPiece.attackMove(gridTab,table,finalPositionX , finalPositionY)){
-                table[finalPositionX][finalPositionY].setPiece(null);
-                gridTab.getChildren().remove(attackedPiece);
-                System.out.println("Attack realizado!"); 
-            }else System.out.println("Attack invalido!"); 
-            
-        }
         reset();
         
     }
@@ -199,15 +186,17 @@ public class TableController implements Initializable{
                 if(tclicked.getPiece()!=null)System.out.println("Has Piece."); 
                 if(event.getButton()== MouseButton.PRIMARY){
                     System.out.println("Primary.");
-                    Move();
+                    if(actualPiece!=null)Move();
                 }
                 if(event.getButton()== MouseButton.SECONDARY){
-                    Attack();
-                }
-                 
+                    
+                    if(actualPiece!=null && attackedPiece!=null){
+                        Attack();
+                    }
+                    else System.out.println("Ataque invalido");
+                }                
                 
-            }     
-            
+            }             
    
    
         };
@@ -229,18 +218,13 @@ public class TableController implements Initializable{
                     
                 }
                 if(event.getButton()== MouseButton.SECONDARY){
-                    if(actualPiece!=null){
+                    if(actualPiece!=null)attackedPiece=p;
+                    if(actualPiece!=null && attackedPiece!=null){
                         Attack();
                     }
                     else System.out.println("Ataque invalido");
                 }
-                if(actualPiece==null && attackedPiece==null)actualPiece = p;
-                else attackedPiece =p;
-                if(attackedPiece!=null && attackedPiece.getTableParts()!=null && actualPiece!=null ){
-                    System.out.println("HasPiece!");
-                    System.out.println(attackedPiece.getTableParts().getLocationX()+" , "+attackedPiece.getTableParts().getLocationX());
-                    
-                }
+                
             }
    
    
@@ -336,11 +320,12 @@ public class TableController implements Initializable{
         table[9][6].setPiece(m);
         addEventesToPiece(m);
         
-        HanPiece m2 = new HanPiece("images/han_solo.jpeg", table[8][5], 0);
-        gridTab.add(m2, 8, 5);
-        table[8][5].setPiece(m2);
+        HanPiece m2 = new HanPiece("images/han_solo.jpeg", table[1][5], 0);
+        gridTab.add(m2, 1, 5);
+        table[1][5].setPiece(m2);
         addEventesToPiece(m2);
     }
+    
     
    
 }

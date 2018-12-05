@@ -36,9 +36,14 @@ public class FXMLDocumentController implements Initializable {
     Parent root;
     String nome1, nome2;
     
-    private void user(){
+    private boolean user(){
+        nome1 = "Maíra";
+        nome2 = "Marcus";      
         nome1 = txtuser1.getText();
         nome2 = txtuser2.getText();
+        System.out.println(nome1);
+        System.out.println(nome2);
+        return true;
     }
     
     private void Message(){
@@ -49,19 +54,25 @@ public class FXMLDocumentController implements Initializable {
     }
     @FXML
     private void handleButtonAction(ActionEvent event) {
+        
         try {
-            
-                        
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Table.fxml"));
-            root = (Parent)fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
+            user();
+            if(nome1!=null || nome2!=null){
+                //System.out.println(nome1);
+                //System.out.println(nome2);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Table.fxml"));
+                root = (Parent)fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
                 //stage.initStyle(StageStyle.UNDECORATED);           
-            stage.setTitle("Table");          
-            stage.setScene(new Scene(root, 50*20, 50*14));            
-            TableController controller = fxmlLoader.<TableController>getController();            
-            controller.setTable();
-            stage.show();
+                stage.setTitle("Table");          
+                stage.setScene(new Scene(root, 50*20, 50*14));            
+                TableController controller = fxmlLoader.<TableController>getController();            
+                controller.setTable();
+                stage.show();
+            }
+            
+            
             
             
             

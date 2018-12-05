@@ -143,7 +143,7 @@ public class TableController implements Initializable{
         System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
         System.out.println("Move.");
         
-        if(actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY) ){
+        if(actualPiece!=null && actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY) ){
             
             System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
                        
@@ -200,7 +200,7 @@ public class TableController implements Initializable{
                 if(tclicked.getPiece()!=null)System.out.println("Has Piece."); 
                 if(event.getButton()== MouseButton.PRIMARY){
                     System.out.println("Primary.");
-                    Move();
+                    if(actualPiece!=null)Move();
                 }
                 if(event.getButton()== MouseButton.SECONDARY){
                     Attack();

@@ -22,7 +22,14 @@ public class HorsePiece extends Piece {
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         
         if(calculateMovePiece( table, x,  y)){
-            t=table[x][y];
+            p.getChildren().remove(this);
+            p.add(this,x,y);
+            t.setPiece(null);
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+            }
+            table[x][y].setPiece(this);
+            t = table[x][y];
             return true;
         }
         return false;

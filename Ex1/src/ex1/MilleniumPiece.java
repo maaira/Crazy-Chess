@@ -37,7 +37,7 @@ public class MilleniumPiece extends Piece{
         int i=xInit, j=yInit+1;
         
             int cont=0;
-            while(cont<=4){
+            while(cont<4){
                 if(table[i][j]==table[x][y])return true;
                 if (table[i][j].getPiece()==null) {
                         i++;
@@ -58,7 +58,7 @@ public class MilleniumPiece extends Piece{
         
             j++;
             int cont=0;
-            while(cont<=4){
+            while(cont<4){
                 if(table[i][j]==table[x][y])return true;
                 if (table[i][j].getPiece()==null) {
                         i--;
@@ -79,7 +79,7 @@ public class MilleniumPiece extends Piece{
         
             j--;
             int cont=0;
-            while(cont<=4){
+            while(cont<4){
                 if(table[i][j]==table[x][y])return true;
                 
                 else if (table[i][j].getPiece()==null) {
@@ -102,7 +102,7 @@ public class MilleniumPiece extends Piece{
         
             j--;
             int cont=0;
-            while(cont<=4){
+            while(cont<4){
                 if(table[i][j]==table[x][y])return true;
                 if (table[i][j].getPiece()==null) {
                         i++;
@@ -129,6 +129,7 @@ public class MilleniumPiece extends Piece{
         if(calculateMovePiece(table,x,y)){
             p.getChildren().remove(this);
             p.add(this,x,y);
+            t.setPiece(null);
             if(table[x][y].getPiece()!=null){
                 p.getChildren().remove(table[x][y].getPiece());
             }

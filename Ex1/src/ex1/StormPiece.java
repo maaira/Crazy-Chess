@@ -23,7 +23,14 @@ public class StormPiece extends Piece{
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
             if(calculateMovePiece(table,x,y)){
-            t=table[x][y];
+            p.getChildren().remove(this);
+            p.add(this,x,y);
+            t.setPiece(null);
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+            }
+            table[x][y].setPiece(this);
+            t = table[x][y];
             
             return true;
         }
@@ -39,10 +46,9 @@ public class StormPiece extends Piece{
         //Time 1 = From bottom to top
         if(this.team == 1){ // Check for the left diagonal 
             if(x == i-1 && y == j-1){
-                if(table[i-1][j-1].getPiece()==null){
-                    System.out.println("Movendo pra diagonal esquerda");
-                    return true;
-                }
+                System.out.println("Movendo pra diagonal esquerda");
+                if(table[i-1][j-1].getPiece()==null)return true;
+                else if(table[i-1][j-1].getPiece()!=null && table[i-1][j-1].getPiece().getTeam()==0 )return true;  
 //                else{
 //                    if(table[x][y].getPiece().getTeam() == 0){
 //                        table[i][j].getPiece().attackMove(table, x, y);
@@ -54,24 +60,21 @@ public class StormPiece extends Piece{
                 return false;
             }
             if(x == i && y == j-1){ //Check forward
-                if(table[i][j-1].getPiece()==null){
-                    System.out.println("Movendo pra frente");
-                    return true;
-                }
+                System.out.println("Movendo pra frente");
+                if(table[i][j-1].getPiece()==null)return true;
+                else if(table[i][j-1].getPiece()!=null && table[i][j-1].getPiece().getTeam()==0)return true;
                 return false;
             }
             if(x == i+1 && y == j-1){ //Checking for the right diagonal
-                if(table[i+1][j-1].getPiece()==null){
-                    System.out.println("Movendo pra diagonal direita");
-                    return true;
-                }
+                System.out.println("Movendo pra diagonal direita");
+                if(table[i+1][j-1].getPiece()==null)return true;
+                else if(table[i+1][j-1].getPiece()==null && table[i+1][j-1].getPiece().getTeam()==0)
                 return false;
             }
             if(x == i && y == j+1){ //Backward check
-                if(table[i][j+1].getPiece()==null){
-                    System.out.println("Movendo pra trás");
-                    return true;
-                }
+                 System.out.println("Movendo pra trás");
+                if(table[i][j+1].getPiece()==null)return true;
+                else if(table[i][j+1].getPiece()!=null && table[i][j+1].getPiece().getTeam()==0)return true;  
                 return false;
             }
             return false;
@@ -80,31 +83,27 @@ public class StormPiece extends Piece{
         //Time 0 = From top to bottom
         if(this.team == 0){ // Check for the left diagonal 
             if(x == i-1 && y == j+1){
-                if(table[i-1][j+1].getPiece()==null){
-                    System.out.println("Movendo pra diagonal esquerda");
-                    return true;
-                }
+                System.out.println("Movendo pra diagonal esquerda");
+                if(table[i-1][j+1].getPiece()==null)return true;
+                else if(table[i-1][j+1].getPiece()!=null  && table[i-1][j+1].getPiece().getTeam()==1 )return true;
                 return false;
             }
             if(x == i && y == j+1){ //Check forward
-                if(table[i][j+1].getPiece()==null){
-                    System.out.println("Movendo pra frente");
-                    return true;
-                }
+                System.out.println("Movendo pra frente");
+                if(table[i][j+1].getPiece()==null)return true;
+                else if(table[i][j+1].getPiece()!=null && table[i][j+1].getPiece().getTeam()==1)return true;
                 return false;
             }
             if(x == i+1 && y == j+1){
-                if(table[i+1][j+1].getPiece()==null){ //Checking for the right diagonal
-                    System.out.println("Movendo pra diagonal direita");
-                    return true;
-                }
+                System.out.println("Movendo pra diagonal direita");
+                if(table[i+1][j+1].getPiece()==null)return true;                 
+                else if(table[i+1][j+1].getPiece()==null && table[i+1][j+1].getPiece().getTeam()==1)return true;
                 return false;
             }
             if(x == i && y == j-1){ //Backward check
-                if(table[i][j-1].getPiece()==null){
-                    System.out.println("Movendo pra trás");
-                    return true;
-                }
+                System.out.println("Movendo pra trás");
+                if(table[i][j-1].getPiece()==null)return true;
+                else if(table[i][j-1].getPiece()!=null && table[i][j-1].getPiece().getTeam()==1)return true;
                 return false;
             }
             return false;

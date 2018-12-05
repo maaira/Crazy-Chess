@@ -36,44 +36,6 @@ public class LeiaPiece extends Piece{
         
        
 
-                /*if(x==i && j==y)return true;
-                if(i <= x && j <= y) {//sudeste
-                    if(cont<2){
-                        if (table[i][j].getPiece()==null) {
-                            j++;
-                        }else return false;
-                    }else{
-                        if (table[i][j].getPiece()==null) {
-                            i++;
-                        }else return false;
-                    }
-                    
-                }
-                else if(i >= x && j <= y){//noroeste
-                    if (table[i][j].getPiece()== null) {
-                        i = i+2;
-                        j = j-2;
-                    }else return false;
-
-                }
-                else if(i <= x && j >= y){//nordeste
-                    if (table[i][j].getPiece() == null) {
-                        i = i-2;
-                        j = j+2;
-                    }else return false;
-
-                }
-                else if(i > x && j > y){//sudoeste
-                    if (table[i][j].getPiece() == null) {
-                        i = i+2;
-                        j = j+2;
-                    }else return false;
-                }
-                else return false;
-                cont++;
-
-
-            }*/
        
         
         return false;
@@ -82,7 +44,14 @@ public class LeiaPiece extends Piece{
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         if(calculateMovePiece(table,x,y)){
-            t=table[x][y];
+            p.getChildren().remove(this);
+            p.add(this,x,y);
+            t.setPiece(null);
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+            }
+            table[x][y].setPiece(this);
+            t = table[x][y];
             
             return true;
         }

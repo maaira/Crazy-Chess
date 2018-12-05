@@ -78,6 +78,13 @@ public class HanPiece extends Piece {
     
     @Override
     protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
+        if(calculeteAttackMove(table , x , y)){   
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+                return true;
+            }else return false;
+             
+        }
         return false;
     }
     
@@ -88,7 +95,7 @@ public class HanPiece extends Piece {
             t.setPiece(null);
             p.getChildren().remove(this);
             p.add(this,x,y);
-            if(table[x][y].getPiece()!=null){
+            if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team){
                 p.getChildren().remove(table[x][y].getPiece());
             }
             table[x][y].setPiece(this);
@@ -101,6 +108,75 @@ public class HanPiece extends Piece {
     
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        
+        if(i<=x && j<=y)return SEAttack(table,x,y);//sudeste
+        if(i>=x && j<=y)return SOAttack(table,x,y);//sudoeste
+        if(i>=x && j>=y)return NOAttack(table,x,y);//noroeste
+        if(i<=x && j>=y)return NEAttack(table,x,y);//nordeste
+        return false;
+    }
+    
+    private boolean SEAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && j<=13 ){
+            i++;
+            j++;            
+            if(i==x && j==y)return true;
+            if(i>13 || j>13)return false;
+            if(i>x || j>y)return false;
+            if(table[i][j].getPiece()!=null)return false;
+        }
+        return false;
+    }
+
+    private boolean SOAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i>=0 && j<=13 ){
+            i--;
+            j++;            
+            if(i==x && j==y)return true;
+            //if(i>13 || j>13)return false;
+            //if(i>x || j>y)return false;
+            if(table[i][j].getPiece()!=null)return false;
+        }
+        return false;
+    }
+
+    private boolean NOAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i>=0 && j>=0 ){
+            i--;
+            j--;            
+            if(i==x && j==y)return true;
+            //if(i<13 || j>13)return false;
+            //if(i>x || j>y)return false;
+            if(table[i][j].getPiece()!=null)return false;
+        }
+        
+        return false;
+    }
+
+    private boolean NEAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && y>=0){
+            i++;
+            j--;
+            if(i==x && j==y)return true;
+            //if(i>13 || j<0)return false;
+            //if(i>x || j<y)return false;
+            if(table[i][j].getPiece()!=null)return false;
+        }
         return false;
     }
 

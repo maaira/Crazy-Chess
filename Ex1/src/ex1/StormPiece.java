@@ -29,9 +29,15 @@ public class StormPiece extends Piece{
     
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
-            if(calculateMovePiece(table,x,y)){
-            t=table[x][y];
-            
+        if(calculateMovePiece(table,x,y)){
+            p.getChildren().remove(this);
+            p.add(this,x,y);
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+            }
+            table[x][y].setPiece(this);
+            t = table[x][y];      
+                
             return true;
         }
         return false;

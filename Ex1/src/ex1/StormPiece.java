@@ -14,21 +14,38 @@ import javafx.scene.layout.GridPane;
  * @author Caique
  */
 public class StormPiece extends Piece{
+    
+     /*
+    --------------------------------------------CONSTRUCTOR----------------------------------------------------------
+    */
 
     public StormPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }
     
+    /*
+    -----------------------------------------MOVEMENT-------------------------------------------------------------
+    */
     
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
             if(calculateMovePiece(table,x,y)){
-            t=table[x][y];
-            
+            p.getChildren().remove(this);
+            p.add(this,x,y);
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+            }
+            table[x][y].setPiece(this);
+            t = table[x][y];      
+                
             return true;
         }
         return false;
     }
+    
+    /*
+    --------------------------------------CALCULATE / CHECK MOVEMENT--------------------------------------------
+    */
 
     @Override
     protected boolean calculateMovePiece(TableParts[][] table, int x, int y) {
@@ -43,14 +60,6 @@ public class StormPiece extends Piece{
                     System.out.println("Movendo pra diagonal esquerda");
                     return true;
                 }
-//                else{
-//                    if(table[x][y].getPiece().getTeam() == 0){
-//                        table[i][j].getPiece().attackMove(table, x, y);
-//                    }else return false;   ----> essa parte comentada deveria entrar enquanto a casa não tivesse nula 
-//                                                  e verificasse se a peça eh do time inimigo, 
-//                                                  se fosse era para comer, mas esse caralho não tá 
-//                                                  comendo nada e nem ninguém, parece até Marcos kkkkkkk
-//                }
                 return false;
             }
             if(x == i && y == j-1){ //Check forward
@@ -111,11 +120,19 @@ public class StormPiece extends Piece{
         }
         return false;
     }
+    
+    /*
+    -----------------------------------ATTACK-------------------------------------------------------------------
+    */
 
     @Override
     protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
         return calculeteAttackMove(table , x , y);
     }
+    
+    /*
+    ------------------------------------CALCULATE / CHECK ATTACK---------------------------------------------------------
+    */
 
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
@@ -127,5 +144,13 @@ public class StormPiece extends Piece{
         Vai ter que ser feita uma verifição por time (0 e 1);
         */
         return false;
+    }
+    
+    /*
+    ------------------------------------CALCULATE / CHECK ATTACK---------------------------------------------------------
+    */
+    
+    protected void CalculateAttackAbility(){
+        
     }
 }

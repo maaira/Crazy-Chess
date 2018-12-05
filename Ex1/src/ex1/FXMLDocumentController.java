@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -48,6 +47,8 @@ public class FXMLDocumentController implements Initializable {
             //controller.setPlayer(user1.getText(), user2.getText());
             controller.setTable();
             
+            //controller.addElements();
+            
 
             stage.show();
             // Esconde a janela atual
@@ -66,6 +67,4 @@ public class FXMLDocumentController implements Initializable {
         // TODO
     }    
 
-    
-    
 }

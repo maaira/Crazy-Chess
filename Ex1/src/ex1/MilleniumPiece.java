@@ -90,8 +90,6 @@ public class MilleniumPiece extends Piece{
             }
             return false;
         
-        
-        
     }
     
     private boolean NEMove(TableParts[][] table ,int x ,int y){
@@ -111,7 +109,6 @@ public class MilleniumPiece extends Piece{
                 cont++;
             }
             return false;
-        
         
     }
     
@@ -215,7 +212,5 @@ public class MilleniumPiece extends Piece{
         }
         return false;
     }
-
-    
     
 }

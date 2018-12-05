@@ -222,11 +222,3 @@ public class LeiaPiece extends Piece{
         
     
 }
-
-
-    
-
-    
-
-    
-

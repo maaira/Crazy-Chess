@@ -6,6 +6,7 @@
 package ex1;    
 
 import java.io.FileNotFoundException;
+import javafx.scene.layout.GridPane;
 
 
 /**
@@ -17,25 +18,10 @@ public class StormPiece extends Piece{
     public StormPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }
-
     
-    public boolean Handler(TableParts[][] table, int x, int y) {
-        boolean  key=false;
-        if(table[x][y].getPiece()==null){
-            key = movePiece( table, x, y); 
-        }
-               
-        else if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()==team){
-            key = false;
-        }
-        else if((table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team)) {
-            key = attackMove( table, x , y);
-        }   
-        return key;
-    }
-
+    
     @Override
-    public boolean movePiece(TableParts[][] table, int x, int y) {
+    public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
             if(calculateMovePiece(table,x,y)){
             t=table[x][y];
             
@@ -127,7 +113,7 @@ public class StormPiece extends Piece{
     }
 
     @Override
-    protected boolean attackMove(TableParts[][] table, int x, int y) {
+    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
         return calculeteAttackMove(table , x , y);
     }
 

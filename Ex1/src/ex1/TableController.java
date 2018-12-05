@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
@@ -103,7 +104,7 @@ public class TableController implements Initializable{
         System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
         
         
-        if(actualPiece!=null && actualPiece.movePiece(table, finalPositionX, finalPositionY)==true ){
+        if(actualPiece!=null && actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY)==true ){
             
             System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
                         
@@ -116,6 +117,30 @@ public class TableController implements Initializable{
             actualPiece=null;
             System.out.println("Movimento Aceito.");
                         
+                            
+                            
+        }else System.out.println("Movimento Invalido."); 
+        reset();
+    }
+    
+    private void MoveAttack(){
+        System.out.println("Move Attack.");
+        initPositionX =  actualPiece.getTableParts().getLocationX();
+        initPositionY =  actualPiece.getTableParts().getLocationY();
+        finalPositionX = tclicked.getLocationX();
+        finalPositionY = tclicked.getLocationY();
+        System.out.println("("+finalPositionX+","+ finalPositionY+")");
+        System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
+                
+        if(actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY)){            
+            System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());                        
+            gridTab.getChildren().remove(actualPiece);
+            gridTab.getChildren().remove(attackedPiece);
+            gridTab.add(actualPiece, finalPositionX, finalPositionY );
+            table[initPositionX][initPositionY].setPiece(null);            
+            actualPiece.setTableParts(tclicked);
+            table[finalPositionX][finalPositionY].setPiece(actualPiece);           
+            System.out.println("Movimento Aceito.");                      
                             
                             
         }else System.out.println("Movimento Invalido."); 
@@ -145,7 +170,7 @@ public class TableController implements Initializable{
            System.out.println("Attack!"); 
             finalPositionX = attackedPiece.getTableParts().getLocationX();
             finalPositionY = attackedPiece.getTableParts().getLocationY();
-            if(actualPiece.attackMove(table,finalPositionX , finalPositionY)){
+            if(actualPiece.attackMove(gridTab,table,finalPositionX , finalPositionY)){
                 table[finalPositionX][finalPositionY].setPiece(null);
                 gridTab.getChildren().remove(attackedPiece);
                 System.out.println("Attack realizado!"); 
@@ -159,8 +184,13 @@ public class TableController implements Initializable{
     public void addEventesToTable(TableParts t1){
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
-            public void handle(MouseEvent event) {
-                System.out.println("You clicked me!"+event.getButton().name()); 
+            public void handle(MouseEvent event) {                
+                if(event.getButton()== MouseButton.PRIMARY){
+                    System.out.println("Primary."); 
+                }
+                if(event.getButton()== MouseButton.SECONDARY){
+                    System.out.println("Secondary."); 
+                }
                 tclicked= (TableParts) event.getSource();
                 System.out.println(tclicked.getLocationX()+" , "+tclicked.getLocationY()); 
                 if(tclicked.getPiece()!=null)System.out.println("Has Piece."); 
@@ -184,12 +214,27 @@ public class TableController implements Initializable{
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("You clicked a Piece!"); 
+                if(event.getButton()== MouseButton.PRIMARY){
+                    if(actualPiece==null)actualPiece=p;
+                    else{
+                        attackedPiece = p;
+                        tclicked = attackedPiece.getTableParts();
+                        Move();
+                    }
+                    
+                }
+                if(event.getButton()== MouseButton.SECONDARY){
+                    if(actualPiece!=null){
+                        Attack();
+                    }
+                    else System.out.println("Ataque invalido");
+                }
                 if(actualPiece==null && attackedPiece==null)actualPiece = p;
                 else attackedPiece =p;
                 if(attackedPiece!=null && attackedPiece.getTableParts()!=null && actualPiece!=null ){
                     System.out.println("HasPiece!");
                     System.out.println(attackedPiece.getTableParts().getLocationX()+" , "+attackedPiece.getTableParts().getLocationX());
-                    Attack();
+                    
                 }
             }
    

@@ -6,6 +6,7 @@
 package ex1;
 
 import java.io.FileNotFoundException;
+import javafx.scene.layout.GridPane;
 
 /**
  *
@@ -73,13 +74,13 @@ public class HanPiece extends Piece {
     } 
     
     @Override
-    protected boolean attackMove(TableParts[][] t ,int x ,int y) {
+    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
         return false;
     }
     
 
     @Override
-    public boolean movePiece(TableParts[][] table, int x, int y) {
+    public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         if(calculateMovePiece(table,x,y)){
             t=table[x][y];
             

@@ -30,6 +30,4 @@ public class Player {
         return piece.isEmpty() && round!=0;
     }
     
-    
-    
 }

@@ -40,8 +40,4 @@ public class TableParts extends Rectangle{
         relocate(x*50, y*50);;
     }   
 
-    
-    
-    
-    
 }

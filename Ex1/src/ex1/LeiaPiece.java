@@ -80,7 +80,7 @@ public class LeiaPiece extends Piece{
     }
 
     @Override
-    public boolean movePiece(TableParts[][] table, int x, int y) {
+    public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         if(calculateMovePiece(table,x,y)){
             t=table[x][y];
             
@@ -90,7 +90,7 @@ public class LeiaPiece extends Piece{
     }
 
     @Override
-    protected boolean attackMove(TableParts[][] table, int x, int y) {
+    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
        return false;
     }
 

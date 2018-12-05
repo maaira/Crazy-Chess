@@ -3,6 +3,7 @@ package ex1;
 import java.io.FileNotFoundException;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
 
 public abstract class Piece extends ImageView{
@@ -63,11 +64,11 @@ public abstract class Piece extends ImageView{
 
     
     //function to move
-    public abstract boolean movePiece(TableParts[][] table ,int x ,int y);
+    public abstract boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y);
     //function to validate the movement of the piece
     protected abstract boolean calculateMovePiece(TableParts[][] table ,int x ,int y);
     //function to attack
-    protected abstract boolean attackMove(TableParts[][] table ,int x ,int y);
+    protected abstract boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y);
     //function to validate the attack of the piece
     protected abstract boolean calculeteAttackMove(TableParts[][] table ,int x ,int y);
 }

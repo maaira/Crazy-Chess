@@ -8,12 +8,14 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 
 public class TableController implements Initializable{
@@ -26,13 +28,49 @@ public class TableController implements Initializable{
     @FXML BorderPane bpMain;
     private final int linhas = 14;    
     private final int colunas = 14;
-    private GridPane gridTab;
+    private GridPane gridTab, cemitery_left, cemitery_right;
     private TableParts[][] table;
     private TableParts tclicked;
     private Piece actualPiece, attackedPiece;
     private int initPositionX, initPositionY,finalPositionX,finalPositionY ;
     private Player player1,player2;
     
+    private GridPane Cemitery(){
+        GridPane tery = new GridPane();
+        TableParts t [][]= new TableParts[14][3];
+        for(int i=0;i<14;i++){
+            RowConstraints con = new RowConstraints();            
+            con.setPrefHeight(50);            
+            tery.getRowConstraints().add(con);
+        }
+        
+        for(int i=0;i<3;i++){
+            ColumnConstraints con = new ColumnConstraints();
+            con.setPrefWidth(50);
+            tery.getColumnConstraints().add(con);
+        }
+        
+        for(int i=0; i<14; i++){
+            for(int j=0;j<3;j++){               
+                final Rectangle r = new Rectangle(50, 50);              
+                r.setFill(Color.BLACK);
+                tery.add(r, j,i);        
+                                
+            }
+        }
+        
+        
+        return tery;
+        
+    }
+    
+    void makeCemitery(){
+        cemitery_left = Cemitery();
+        cemitery_right = Cemitery();
+        bpMain.setLeft(cemitery_left);
+        bpMain.setRight(cemitery_right);
+        
+    }
     
     void setPlayer(String p1,String p2){
          
@@ -40,11 +78,13 @@ public class TableController implements Initializable{
     
     }
     
-    void setTable(){
-    
-    
+    void setTable() throws FileNotFoundException{
+        makeTable();
+        
+        makeCemitery();
+        
     }
-    void montarGrid() throws FileNotFoundException{
+    void makeTable() throws FileNotFoundException {
         GridPane gridTab = new GridPane();
         
         TableParts t [][]= new TableParts[14][14];
@@ -101,26 +141,21 @@ public class TableController implements Initializable{
         finalPositionY = tclicked.getLocationY();
         System.out.println("("+finalPositionX+","+ finalPositionY+")");
         System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
+        System.out.println("Move.");
         
-        
-        if(actualPiece!=null && actualPiece.movePiece(table, finalPositionX, finalPositionY)==true ){
+        if(actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY) ){
             
             System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
-                        
-            gridTab.getChildren().remove(actualPiece);
-            gridTab.add(actualPiece, finalPositionX, finalPositionY );
-            table[initPositionX][initPositionY].setPiece(null);
+                       
             
-            actualPiece.setTableParts(tclicked);
-            table[finalPositionX][finalPositionY].setPiece(actualPiece);
-            actualPiece=null;
             System.out.println("Movimento Aceito.");
                         
                             
                             
         }else System.out.println("Movimento Invalido."); 
         reset();
-    }
+    }    
+    
     
     void reset(){
         tclicked     = null;
@@ -145,7 +180,7 @@ public class TableController implements Initializable{
            System.out.println("Attack!"); 
             finalPositionX = attackedPiece.getTableParts().getLocationX();
             finalPositionY = attackedPiece.getTableParts().getLocationY();
-            if(actualPiece.attackMove(table,finalPositionX , finalPositionY)){
+            if(actualPiece.attackMove(gridTab,table,finalPositionX , finalPositionY)){
                 table[finalPositionX][finalPositionY].setPiece(null);
                 gridTab.getChildren().remove(attackedPiece);
                 System.out.println("Attack realizado!"); 
@@ -159,19 +194,20 @@ public class TableController implements Initializable{
     public void addEventesToTable(TableParts t1){
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
-            public void handle(MouseEvent event) {
-                System.out.println("You clicked me!"+event.getButton().name()); 
+            public void handle(MouseEvent event) { 
                 tclicked= (TableParts) event.getSource();
                 System.out.println(tclicked.getLocationX()+" , "+tclicked.getLocationY()); 
                 if(tclicked.getPiece()!=null)System.out.println("Has Piece."); 
-                if(actualPiece!= null && tclicked!=null && tclicked.getPiece()==null && attackedPiece==null){
+                if(event.getButton()== MouseButton.PRIMARY){
+                    System.out.println("Primary.");
                     Move();
-                    
-                }else{
+                }
+                if(event.getButton()== MouseButton.SECONDARY){
                     Attack();
                 }
-            }
+                 
                 
+            }     
             
    
    
@@ -184,12 +220,27 @@ public class TableController implements Initializable{
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("You clicked a Piece!"); 
+                if(event.getButton()== MouseButton.PRIMARY){
+                    if(actualPiece==null)actualPiece=p;
+                    else{
+                        attackedPiece = p;
+                        tclicked = attackedPiece.getTableParts();
+                        Move();
+                    }
+                    
+                }
+                if(event.getButton()== MouseButton.SECONDARY){
+                    if(actualPiece!=null){
+                        Attack();
+                    }
+                    else System.out.println("Ataque invalido");
+                }
                 if(actualPiece==null && attackedPiece==null)actualPiece = p;
                 else attackedPiece =p;
                 if(attackedPiece!=null && attackedPiece.getTableParts()!=null && actualPiece!=null ){
                     System.out.println("HasPiece!");
                     System.out.println(attackedPiece.getTableParts().getLocationX()+" , "+attackedPiece.getTableParts().getLocationX());
-                    Attack();
+                    
                 }
             }
    

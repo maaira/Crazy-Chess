@@ -29,44 +29,47 @@ public class HanPiece extends Piece {
             while(cont<3){
                 i++;
                 j++;
+                if(i==x && j==y)return true;
                 if(table[i][j].getPiece()!=null)return false;
                 cont++;
             }
-            if(i==x && j==y)return true;
-            else return false;
+            
+            return false;
             
         }
         if (i+3==x && j-3==y){
             while(cont<3){
                 i++;
                 j--;
+                
+                if(i==x && j==y)return true;
+
                 if(table[i][j].getPiece()!=null)return false;
                 cont++;
             }
-            if(i==x && j==y)return true;
-            else return false;
+           return false;
             
         }
         if (i-3==x && j+3==y){
             while(cont<3){
                 i--;
                 j++;
+                if(i==x && j==y)return true;
                 if(table[i][j].getPiece()!=null)return false;
                 cont++;
             }
-            if(i==x && j==y)return true;
-            else return false;
+            return false;
             
         }
         if (i-3==x && j-3==y){
             while(cont<3){
                 i--;
                 j--;
+                if(i==x && j==y)return true;
                 if(table[i][j].getPiece()!=null)return false;
                 cont++;
             }
-            if(i==x && j==y)return true;
-            else return false;
+            return false;
             
         }
            
@@ -82,7 +85,14 @@ public class HanPiece extends Piece {
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         if(calculateMovePiece(table,x,y)){
-            t=table[x][y];
+            t.setPiece(null);
+            p.getChildren().remove(this);
+            p.add(this,x,y);
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+            }
+            table[x][y].setPiece(this);
+            t = table[x][y];      
             
             return true;
         }

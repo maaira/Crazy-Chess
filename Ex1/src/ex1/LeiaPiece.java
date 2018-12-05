@@ -74,14 +74,14 @@ public class LeiaPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         
-        if((i+2!=x && j+2!=y))return false;
+        if((i+2!=x || j+2!=y))return false;
         
         else{
             
             j++;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
-            while(cont<=3){           
+            while(cont<4){           
                 if(i==x && j==y)return true;
                 if(cont<1){
                     if (table[i][j].getPiece()==null) {j++;}
@@ -104,14 +104,14 @@ public class LeiaPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         
-        if((i-2!=x && j+2!=y))return false;
+        if((i-2!=x || j+2!=y))return false;
         
         else{
             
             j++;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
-            while(cont<=3){           
+            while(cont<4){           
                 if(i==x && j==y)return true;
                 if(cont<1){
                     if (table[i][j].getPiece()==null) {j++;}
@@ -134,14 +134,14 @@ public class LeiaPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         
-        if((i-2!=x && j-2!=y))return false;
+        if((i-2!=x || j-2!=y))return false;
         
         else{
             
             j--;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
-            while(cont<=3){           
+            while(cont<4){           
                 if(i==x && j==y)return true;
                 if(cont<1){
                     if (table[i][j].getPiece()==null) {j--;}
@@ -164,14 +164,14 @@ public class LeiaPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         
-        if((i+2!=x && j-2!=y))return false;
+        if((i+2!=x || j-2!=y))return false;
         
         else{
             
             j--;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
-            while(cont<=3){           
+            while(cont<4){           
                 if(i==x && j==y)return true;
                 if(cont<1){
                     if (table[i][j].getPiece()==null) {j--;}

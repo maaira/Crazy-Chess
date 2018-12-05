@@ -117,8 +117,12 @@ public class MilleniumPiece extends Piece{
     
     @Override
     protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {             
-        if(calculeteAttackMove(table , x , y)){
-        
+        if(calculeteAttackMove(table , x , y)){   
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+                return true;
+            }else return false;
+             
         }    
         return false;
     }

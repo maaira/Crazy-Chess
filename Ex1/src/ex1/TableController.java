@@ -163,25 +163,13 @@ public class TableController implements Initializable{
     }
     private void Attack(){
         
-        /*if(tclicked!=null && tclicked.getPiece()!=null && attackedPiece==null ){
-            System.out.println("Attack Table!"); 
-            finalPositionX = tclicked.getLocationX();
-            finalPositionY = tclicked.getLocationY();
-            if(actualPiece.attackMove(table,finalPositionX , finalPositionY)){
-                
-                gridTab.getChildren().remove(tclicked.getPiece());
-                tclicked.setPiece(null);
-                System.out.println("Attack realizado!"); 
-            }else System.out.println("Attack invalido!"); 
-            
-        }*/
+        
         if(attackedPiece!=null && actualPiece!=null){
            System.out.println("Attack!"); 
             finalPositionX = attackedPiece.getTableParts().getLocationX();
             finalPositionY = attackedPiece.getTableParts().getLocationY();
             if(actualPiece.attackMove(gridTab,table,finalPositionX , finalPositionY)){
-                table[finalPositionX][finalPositionY].setPiece(null);
-                gridTab.getChildren().remove(attackedPiece);
+                
                 System.out.println("Attack realizado!"); 
             }else System.out.println("Attack invalido!"); 
             
@@ -202,6 +190,7 @@ public class TableController implements Initializable{
                     if(actualPiece!=null)Move();
                 }
                 if(event.getButton()== MouseButton.SECONDARY){
+                    attackedPiece = tclicked.getPiece();
                     Attack();
                 }
                  
@@ -229,7 +218,9 @@ public class TableController implements Initializable{
                     
                 }
                 if(event.getButton()== MouseButton.SECONDARY){
+                    
                     if(actualPiece!=null){
+                        attackedPiece = p;
                         Attack();
                     }
                     else System.out.println("Ataque invalido");

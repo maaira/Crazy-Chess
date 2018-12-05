@@ -35,7 +35,7 @@ public class MilleniumPiece extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit+1;
-        if(table[i][j].getPiece()==null){
+        
             int cont=0;
             while(cont<=4){
                 if(table[i][j]==table[x][y])return true;
@@ -47,8 +47,7 @@ public class MilleniumPiece extends Piece{
             }
             return false;
         
-        }
-        return false;
+        
     }
     
     private boolean SOMove(TableParts[][] table ,int x ,int y){
@@ -56,7 +55,7 @@ public class MilleniumPiece extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        if(table[i][j+1].getPiece()==null){
+        
             j++;
             int cont=0;
             while(cont<=4){
@@ -69,8 +68,7 @@ public class MilleniumPiece extends Piece{
             }
             return false;
         
-        }
-        return false;
+       
     }
     
     private boolean NOMove(TableParts[][] table ,int x ,int y){
@@ -78,7 +76,7 @@ public class MilleniumPiece extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        if(table[i][j-1].getPiece()==null){
+        
             j--;
             int cont=0;
             while(cont<=4){
@@ -92,7 +90,7 @@ public class MilleniumPiece extends Piece{
             }
             return false;
         
-        }else return false;
+        
         
     }
     
@@ -101,7 +99,7 @@ public class MilleniumPiece extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        if(table[i][j-1].getPiece()==null){
+        
             j--;
             int cont=0;
             while(cont<=4){
@@ -114,8 +112,7 @@ public class MilleniumPiece extends Piece{
             }
             return false;
         
-        }
-        return false;
+        
     }
     
     @Override
@@ -130,8 +127,14 @@ public class MilleniumPiece extends Piece{
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         if(calculateMovePiece(table,x,y)){
-            t=table[x][y];
-            
+            p.getChildren().remove(this);
+            p.add(this,x,y);
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+            }
+            table[x][y].setPiece(this);
+            t = table[x][y];      
+                
             return true;
         }
         return false;

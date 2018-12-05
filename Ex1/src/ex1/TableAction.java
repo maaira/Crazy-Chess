@@ -9,6 +9,6 @@ package ex1;
  *
  * @author win7
  */
-public class TGridPane {
+public class TableAction {
     
 }

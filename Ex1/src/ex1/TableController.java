@@ -15,6 +15,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 
 public class TableController implements Initializable{
@@ -27,13 +28,49 @@ public class TableController implements Initializable{
     @FXML BorderPane bpMain;
     private final int linhas = 14;    
     private final int colunas = 14;
-    private GridPane gridTab;
+    private GridPane gridTab, cemitery_left, cemitery_right;
     private TableParts[][] table;
     private TableParts tclicked;
     private Piece actualPiece, attackedPiece;
     private int initPositionX, initPositionY,finalPositionX,finalPositionY ;
     private Player player1,player2;
     
+    private GridPane Cemitery(){
+        GridPane tery = new GridPane();
+        TableParts t [][]= new TableParts[14][3];
+        for(int i=0;i<14;i++){
+            RowConstraints con = new RowConstraints();            
+            con.setPrefHeight(50);            
+            tery.getRowConstraints().add(con);
+        }
+        
+        for(int i=0;i<3;i++){
+            ColumnConstraints con = new ColumnConstraints();
+            con.setPrefWidth(50);
+            tery.getColumnConstraints().add(con);
+        }
+        
+        for(int i=0; i<14; i++){
+            for(int j=0;j<3;j++){               
+                final Rectangle r = new Rectangle(50, 50);              
+                r.setFill(Color.BLACK);
+                tery.add(r, j,i);        
+                                
+            }
+        }
+        
+        
+        return tery;
+        
+    }
+    
+    void makeCemitery(){
+        cemitery_left = Cemitery();
+        cemitery_right = Cemitery();
+        bpMain.setLeft(cemitery_left);
+        bpMain.setRight(cemitery_right);
+        
+    }
     
     void setPlayer(String p1,String p2){
          
@@ -41,11 +78,13 @@ public class TableController implements Initializable{
     
     }
     
-    void setTable(){
-    
-    
+    void setTable() throws FileNotFoundException{
+        makeTable();
+        
+        makeCemitery();
+        
     }
-    void montarGrid() throws FileNotFoundException{
+    void makeTable() throws FileNotFoundException {
         GridPane gridTab = new GridPane();
         
         TableParts t [][]= new TableParts[14][14];
@@ -102,50 +141,21 @@ public class TableController implements Initializable{
         finalPositionY = tclicked.getLocationY();
         System.out.println("("+finalPositionX+","+ finalPositionY+")");
         System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
+        System.out.println("Move.");
         
-        
-        if(actualPiece!=null && actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY)==true ){
+        if(actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY) ){
             
             System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
-                        
-            gridTab.getChildren().remove(actualPiece);
-            gridTab.add(actualPiece, finalPositionX, finalPositionY );
-            table[initPositionX][initPositionY].setPiece(null);
+                       
             
-            actualPiece.setTableParts(tclicked);
-            table[finalPositionX][finalPositionY].setPiece(actualPiece);
-            actualPiece=null;
             System.out.println("Movimento Aceito.");
                         
                             
                             
         }else System.out.println("Movimento Invalido."); 
         reset();
-    }
+    }    
     
-    private void MoveAttack(){
-        System.out.println("Move Attack.");
-        initPositionX =  actualPiece.getTableParts().getLocationX();
-        initPositionY =  actualPiece.getTableParts().getLocationY();
-        finalPositionX = tclicked.getLocationX();
-        finalPositionY = tclicked.getLocationY();
-        System.out.println("("+finalPositionX+","+ finalPositionY+")");
-        System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
-                
-        if(actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY)){            
-            System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());                        
-            gridTab.getChildren().remove(actualPiece);
-            gridTab.getChildren().remove(attackedPiece);
-            gridTab.add(actualPiece, finalPositionX, finalPositionY );
-            table[initPositionX][initPositionY].setPiece(null);            
-            actualPiece.setTableParts(tclicked);
-            table[finalPositionX][finalPositionY].setPiece(actualPiece);           
-            System.out.println("Movimento Aceito.");                      
-                            
-                            
-        }else System.out.println("Movimento Invalido."); 
-        reset();
-    }
     
     void reset(){
         tclicked     = null;
@@ -184,24 +194,20 @@ public class TableController implements Initializable{
     public void addEventesToTable(TableParts t1){
         EventHandler<javafx.scene.input.MouseEvent> eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
-            public void handle(MouseEvent event) {                
-                if(event.getButton()== MouseButton.PRIMARY){
-                    System.out.println("Primary."); 
-                }
-                if(event.getButton()== MouseButton.SECONDARY){
-                    System.out.println("Secondary."); 
-                }
+            public void handle(MouseEvent event) { 
                 tclicked= (TableParts) event.getSource();
                 System.out.println(tclicked.getLocationX()+" , "+tclicked.getLocationY()); 
                 if(tclicked.getPiece()!=null)System.out.println("Has Piece."); 
-                if(actualPiece!= null && tclicked!=null && tclicked.getPiece()==null && attackedPiece==null){
+                if(event.getButton()== MouseButton.PRIMARY){
+                    System.out.println("Primary.");
                     Move();
-                    
-                }else{
+                }
+                if(event.getButton()== MouseButton.SECONDARY){
                     Attack();
                 }
-            }
+                 
                 
+            }     
             
    
    

@@ -46,8 +46,8 @@ public class FXMLDocumentController implements Initializable {
             
             TableController controller = fxmlLoader.<TableController>getController();
             //controller.setPlayer(user1.getText(), user2.getText());
-            controller.montarGrid();
-                       
+            controller.setTable();
+            
 
             stage.show();
             // Esconde a janela atual

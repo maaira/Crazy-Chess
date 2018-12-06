@@ -14,7 +14,7 @@ public class ChewPiece extends Piece{
     
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
-        if(  calculateMovePiece(table,x,y)){
+        if(calculateMovePiece(table,x,y)){
             p.getChildren().remove(this);
             p.add(this,x,y);
             t.setPiece(null);
@@ -65,7 +65,7 @@ public class ChewPiece extends Piece{
         int i=xInit, j=yInit;
         int cont=0;
         
-        if(x>i-5 && y>j+5){
+        if(x<i-5 && y>j+5){
             System.out.println("Mais De 5 Casas");
             return false;
         }
@@ -127,7 +127,7 @@ public class ChewPiece extends Piece{
                     int i=xInit, j=yInit;
                     int cont=0;
         
-        if(x>i-5 && y>j-5){
+        if(x<i-5 && y<j-5){
             System.out.println("Mais De 5 Casas");
             return false;
         }
@@ -156,7 +156,7 @@ public class ChewPiece extends Piece{
                     int i=xInit, j=yInit;
                     int cont=0;
         
-        if(x>i+5 && y>j-5){
+        if(x>i+5 && y<j-5){
             System.out.println("Mais De 5 Casas");
             return false;
         }
@@ -213,7 +213,7 @@ public class ChewPiece extends Piece{
         int i=xInit, j=yInit;
         int cont=0;
         
-        if(x>i-5){
+        if(x<i-5){
             System.out.println("Mais De 5 Casas");
             return false;
         }
@@ -244,7 +244,7 @@ public class ChewPiece extends Piece{
         int i=xInit, j=yInit;
         int cont=0;
         
-        if(y>j-5){
+        if(y<j-5){
             System.out.println("Mais De 5 Casas");
             return false;
         }

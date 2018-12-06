@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 public abstract class Piece extends ImageView{
     //the part piece
     protected int team;
+    protected Player pl;
     //the position: location[0] = x e location[1]=y
     protected TableParts t;    
     //protected String nome;

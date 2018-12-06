@@ -11,6 +11,11 @@ public class Player {
     public void setRound(int i){
         round = i;
     }
+    
+    public int getRound() {
+        return round;
+    }
+    
     public void moveStatus(boolean status){
         for(Piece pe : piece ){
             pe.setMove_status(status);
@@ -25,7 +30,6 @@ public class Player {
             pe.setRound(status);
         }
     }
-    
 
     public int getTeam() {
         return team;
@@ -37,9 +41,7 @@ public class Player {
     }
     
     public boolean emptyPiece(){
-        return piece.isEmpty() && round!=0;
+        return piece.isEmpty() && getRound()!=0;
     }
-    
-    
-    
+
 }

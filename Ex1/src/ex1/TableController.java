@@ -34,7 +34,7 @@ public class TableController implements Initializable{
     private Piece actualPiece, attackedPiece;
     private int initPositionX, initPositionY,finalPositionX,finalPositionY ;
     private Player player1,player2;    
-    int round=0;
+    int round=0, cont = 0;
     
     private GridPane Cemitery(){
         GridPane tery = new GridPane();
@@ -67,9 +67,15 @@ public class TableController implements Initializable{
     
     private void setMoveStatus(){
         if(round%2==00){
+            if(round%8==0 && cont<1){
+                cont++;
+            }
             player1.moveStatus(true);
             player2.moveStatus(false);
         }else{
+            if(round%8==0 && cont<1){
+                cont++;
+            }
             player1.moveStatus(false);
             player2.moveStatus(true);
         }
@@ -172,7 +178,8 @@ public class TableController implements Initializable{
             Round();
             setMoveStatus();
             CheckMove();
-            Check();                
+            Check();
+            cont--;
                             
         }else JOptionPane.showMessageDialog(null,"Movimetno invaldido.");
         reset();
@@ -185,10 +192,9 @@ public class TableController implements Initializable{
         actualPiece  = null;
     }
     
-    void Check(){
-        if(player1.getPiece().size()==0){
+    void Check(){        if(player1.getPiece().isEmpty()){
             JOptionPane.showMessageDialog(null,"Jogador 2 Venceu! O imperio ganhou!");
-        }else if(player2.getPiece().size()==0){
+        }else if(player2.getPiece().isEmpty()){
 
             JOptionPane.showMessageDialog(null,"Jogador 1 Venceu! A aliança venceu!");
         }
@@ -213,6 +219,7 @@ public class TableController implements Initializable{
             setMoveStatus();
             CheckMove();
             Check();
+            cont--;
        }else JOptionPane.showMessageDialog(null,"Ataque invalido.");    
             
         

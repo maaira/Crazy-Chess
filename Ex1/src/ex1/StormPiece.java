@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
  */
 public class StormPiece extends Piece{
     
+    int cont, contFinal;
     public StormPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }
@@ -117,13 +118,37 @@ public class StormPiece extends Piece{
     @Override
     protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
         if(calculeteAttackMove(table , x , y)){
-        int xInit = t.getLocationX(); 
-        int yInit = t.getLocationY();
-        int i=xInit, j=yInit, m = 0, n = 0;
-        //Método inutilizável para a peça StormPiec
-        if((x<=i+1) && (x>=i-1) && (x<=j+1) && (x>=j-1)) return true;
-        else return false;
-    
+            int xInit = t.getLocationX(); 
+            int yInit = t.getLocationY();
+            int i=xInit, j=yInit;
+            
+            if(cont==1){
+                if(table[x-1][y-1].getPiece()!=null){ //7
+                    p.getChildren().remove(table[x-1][y-1].getPiece());
+                }
+                if(table[x][y-1].getPiece()!=null){ //8
+                    p.getChildren().remove(table[x][y-1].getPiece());
+                }
+                if(table[x+1][y-1].getPiece()!=null){ //9
+                    p.getChildren().remove(table[x+1][y-1].getPiece());
+                }
+                if(table[x-1][y].getPiece()!=null){ //4
+                    p.getChildren().remove(table[x-1][y].getPiece());
+                }
+                if(table[x+1][y].getPiece()!=null){ //6
+                    p.getChildren().remove(table[x+1][y].getPiece());
+                }
+                if(table[x-1][y+1].getPiece()!=null){ //1
+                    p.getChildren().remove(table[x-1][y+1].getPiece());
+                }
+                if(table[x][y+1].getPiece()!=null){ //2
+                    p.getChildren().remove(table[x][y+1].getPiece());
+                }
+                if(table[x-1][y+1].getPiece()!=null){ //3
+                    p.getChildren().remove(table[x-1][y+1].getPiece());
+                }
+            }
+
         }
         return false;
     }
@@ -133,10 +158,11 @@ public class StormPiece extends Piece{
         int xInit = t.getLocationX(); //Line
         int yInit = t.getLocationY(); //Colune
         int i=xInit, j=yInit;
-        /*
-        Pode ser feita uma verificação em um else dento de calculateMovePiece e aqui fazer a ação de remover a peça;
-        Vai ter que ser feita uma verifição por time (0 e 1);
-        */
-        return false;
+        
+        if(x==i && y==j){
+            return table[x-1][y-1].getPiece()!=null || table[x][y-1].getPiece()!=null || table[x+1][y-1].getPiece()!=null || table[x-1][y].getPiece()!=null || table[x+1][y].getPiece()!=null || table[x-1][y+1].getPiece()!=null || table[x][y+1].getPiece()!=null || table[x-1][y+1].getPiece()!=null;
+        }else return false;
+        
     }
+    
 }

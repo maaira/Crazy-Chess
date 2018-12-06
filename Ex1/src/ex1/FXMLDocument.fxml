@@ -8,18 +8,18 @@
 
 <AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1180.0" style="-fx-background-image: url(&quot;file:src/images/abre.jpg&quot;); -fx-background-position: center center; -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ex1.FXMLDocumentController">
    <children>
-      <Label layoutX="117.0" layoutY="22.0" text="Lapa Wars" textFill="#f7ea1e">
+      <Label layoutX="479.0" layoutY="253.0" text="Lapa Wars" textFill="#f7ea1e">
          <font>
             <Font name="DeathStar" size="18.0" />
          </font>
       </Label>
-      <Label layoutX="77.0" layoutY="39.0" text="A guerra dos Big Big's" textFill="#f7ea1e">
+      <Label layoutX="450.0" layoutY="280.0" text="A guerra dos Big Big's" textFill="#f7ea1e">
          <font>
             <Font name="DeathStar" size="15.0" />
          </font>
       </Label>
-      <Button layoutX="132.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseClicked="#handleButtonAction" text="Iniciar" />
-      <TextField fx:id="user2" layoutX="67.0" layoutY="100.0" />
-      <TextField fx:id="user1" layoutX="69.0" layoutY="62.0" />
+      <Button layoutX="499.0" layoutY="383.0" mnemonicParsing="false" onAction="#handleButtonAction" onMouseClicked="#handleButtonAction" text="Iniciar" />
+      <TextField fx:id="txtuser2" layoutX="446.0" layoutY="337.0" />
+      <TextField fx:id="txtuser1" layoutX="448.0" layoutY="299.0" />
    </children>
 </AnchorPane>

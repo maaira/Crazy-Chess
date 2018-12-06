@@ -1,3 +1,4 @@
+
 package ex1;
 
 import javafx.application.Application;
@@ -13,5 +14,7 @@ public class Comands extends Application{
     public void start(Stage primaryStage) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
     
 }

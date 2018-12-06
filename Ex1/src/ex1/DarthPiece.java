@@ -19,10 +19,11 @@ public class DarthPiece extends Piece{
 
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
-       if(  calculateMovePiece(table,x,y)){
+       if(  calculateMovePiece(table,x,y) ){
+            t.setPiece(null); 
             p.getChildren().remove(this);
             p.add(this,x,y);
-            if(table[x][y].getPiece()!=null){
+            if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team ){
                 p.getChildren().remove(table[x][y].getPiece());
             }
             table[x][y].setPiece(this);
@@ -61,12 +62,12 @@ public class DarthPiece extends Piece{
         if(i == 11 || i == 12){
             return false;
         }
-        if(x!=i+1 && y!=j+5){
+        if(x!=i+1 || y!=j+5){
             return false;
         }
         
         while(cont < 5){
-                
+            if(table[i][j]==table[x][y])return true;    
             if(cont<=2){
                 j++;
                 i++;
@@ -75,8 +76,17 @@ public class DarthPiece extends Piece{
             }else{
                 j++;
                 i--;
+                
                 if(table[i][j].getPiece()==null){
-                }else return false;
+                }else{
+                    if(y == j){
+                        if(table[i][j].getPiece().getTeam()==team){
+                            return false;
+                        }else return true;
+                    }else{
+                        return false;
+                    }
+                }
             }
             cont++;   
         }
@@ -94,7 +104,7 @@ public class DarthPiece extends Piece{
             return false;
         }
         
-        if(x!=i-1 && y!=j+5){
+        if(x!=i-1 || y!=j+5){
             return false;
         }
         
@@ -109,7 +119,15 @@ public class DarthPiece extends Piece{
                 j++;
                 i++;
                 if(table[i][j].getPiece()==null){;
-                }else return false;
+                }else{
+                    if(y == j){
+                        if(table[i][j].getPiece().getTeam()==team){
+                            return false;
+                        }else return true;
+                    }else{
+                        return false;
+                    }
+                }
             }
             cont++;
         }
@@ -127,7 +145,7 @@ public class DarthPiece extends Piece{
             return false;
         }
         
-        if(x!=i+1 && y!=j-5){
+        if(x!=i+1 || y!=j-5){
             return false;
         }
         
@@ -142,7 +160,15 @@ public class DarthPiece extends Piece{
                 j--;
                 i--;
                 if(table[i][j].getPiece()==null){
-                }else return false;
+                }else{
+                    if(y == j){
+                        if(table[i][j].getPiece().getTeam()==team){
+                            return false;
+                        }else return true;
+                    }else{
+                        return false;
+                    }
+                }
             }
             cont++;
         }
@@ -160,7 +186,7 @@ public class DarthPiece extends Piece{
             return false;
         }
         
-        if(x!=i-1 && y!=j-5){
+        if(x!=i-1 || y!=j-5){
             return false;
         }
         
@@ -175,7 +201,15 @@ public class DarthPiece extends Piece{
                 j--;
                 i++;
                 if(table[i][j].getPiece()==null){
-                }else return false;
+                }else{
+                    if(y == j){
+                        if(table[i][j].getPiece().getTeam()==team){
+                            return false;
+                        }else return true;
+                    }else{
+                        return false;
+                    }
+                }
             }
             cont++;
         }
@@ -186,11 +220,41 @@ public class DarthPiece extends Piece{
 
     @Override
     protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
-        return false;
+         if(calculeteAttackMove(table , x , y)){
+             t.setPiece(null);
+             p.getChildren().remove(table[x][y].getPiece());
+             table[x][y].setPiece(null);
+             return true;
+         }
+    
+         return false;
     }
 
     @Override
     protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
-        return false;
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        if(team == 1){
+            if(table[i][j-1].getPiece()==null){
+            return false;
+            }else{
+                if(table[i][j-1].getPiece().getTeam() == team){
+                    return false;
+                }else{
+                   return true; 
+                }
+            }
+        }else{
+           if(table[i][j+1].getPiece()==null){
+            return false;
+            }else{
+                if(table[i][j+1].getPiece().getTeam() == team){
+                    return false;
+                }else{
+                   return true; 
+                }
+            } 
+        }
     }
 }

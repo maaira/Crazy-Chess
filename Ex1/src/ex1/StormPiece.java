@@ -15,40 +15,30 @@ import javafx.scene.layout.GridPane;
  */
 public class StormPiece extends Piece{
     
-    /*
-    --------------------------------------------CONSTRUCTOR----------------------------------------------------------
-    */
-    
     public StormPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }
     
-    /*
-    -----------------------------------------MOVEMENT-------------------------------------------------------------
-    */
     
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
-        if(calculateMovePiece(table,x,y)){
+            if(calculateMovePiece(table,x,y)){
             p.getChildren().remove(this);
             p.add(this,x,y);
+            t.setPiece(null);
             if(table[x][y].getPiece()!=null){
                 p.getChildren().remove(table[x][y].getPiece());
             }
             table[x][y].setPiece(this);
-            t = table[x][y];      
-                
+            t = table[x][y];
+            
             return true;
         }
         return false;
     }
-    
-    /*
-    --------------------------------------CALCULATE / CHECK MOVEMENT--------------------------------------------
-    */
 
     @Override
-    protected boolean calculateMovePiece(TableParts[][] table, int x, int y) {
+   protected boolean calculateMovePiece(TableParts[][] table, int x, int y) {
         int xInit = t.getLocationX(); 
         int yInit = t.getLocationY(); 
         int i=xInit, j=yInit;
@@ -123,66 +113,30 @@ public class StormPiece extends Piece{
         }
         return false;
     }
-    
-    /*
-    -----------------------------------ATTACK-------------------------------------------------------------------
-    */
-    //Método inutilizável para a peça StormPiec
+
     @Override
-    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) { //Método inutilizável para a peça StormPiec
+    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
+        if(calculeteAttackMove(table , x , y)){
         int xInit = t.getLocationX(); 
         int yInit = t.getLocationY();
         int i=xInit, j=yInit, m = 0, n = 0;
         //Método inutilizável para a peça StormPiec
         if((x<=i+1) && (x>=i-1) && (x<=j+1) && (x>=j-1)) return true;
         else return false;
-        //Método inutilizável para a peça StormPiec
-    }
-    /*
-    ------------------------------------CALCULATE / CHECK ATTACK---------------------------------------------------------
-    */
-    //Método inutilizável para a peça StormPiec
-    @Override
-    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) { //Método inutilizável para a peça StormPiec
-        int xInit = t.getLocationX(); 
-        int yInit = t.getLocationY(); 
-        int i=xInit, j=yInit;
-        //Método inutilizável para a peça StormPiec
-        return table[i-1][j-1].getPiece()!=null || table[i][j-1].getPiece()!=null || table[i+1][j-1].getPiece()!=null || table[i-1][j].getPiece()!=null || table[i+1][j].getPiece()!=null || table[i-1][j+1].getPiece()!=null || table[i][j+1].getPiece()!=null || table[i-1][j+1].getPiece()!=null;
-    }
-    //Método inutilizável para a peça StormPiec
-    /*
-    ------------------------------------CALCULATE / CHECK ATTACK---------------------------------------------------------
-    */
     
-    protected void AttackAbility(TableParts[][] table, GridPane p){
-        int xInit = t.getLocationX();
-        int yInit = t.getLocationY();
-        int i=xInit, j=yInit;
+        }
+        return false;
+    }
 
-        if(table[i-1][j-1].getPiece()!=null){ //7
-            p.getChildren().remove(table[i-1][j-1].getPiece());
-        }
-        if(table[i][j-1].getPiece()!=null){ //8
-            p.getChildren().remove(table[i][j-1].getPiece());
-        }
-        if(table[i+1][j-1].getPiece()!=null){ //9
-            p.getChildren().remove(table[i+1][j-1].getPiece());
-        }
-        if(table[i-1][j].getPiece()!=null){ //4
-            p.getChildren().remove(table[i-1][j].getPiece());
-        }
-        if(table[i+1][j].getPiece()!=null){ //6
-            p.getChildren().remove(table[i+1][j].getPiece());
-        }
-        if(table[i-1][j+1].getPiece()!=null){ //1
-            p.getChildren().remove(table[i-1][j+1].getPiece());
-        }
-        if(table[i][j+1].getPiece()!=null){ //2
-            p.getChildren().remove(table[i][j+1].getPiece());
-        }
-        if(table[i-1][j+1].getPiece()!=null){ //3
-            p.getChildren().remove(table[i-1][j+1].getPiece());
-        }
+    @Override
+    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX(); //Line
+        int yInit = t.getLocationY(); //Colune
+        int i=xInit, j=yInit;
+        /*
+        Pode ser feita uma verificação em um else dento de calculateMovePiece e aqui fazer a ação de remover a peça;
+        Vai ter que ser feita uma verifição por time (0 e 1);
+        */
+        return false;
     }
 }

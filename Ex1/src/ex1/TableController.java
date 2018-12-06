@@ -161,19 +161,23 @@ public class TableController implements Initializable{
         attackedPiece= null;
         actualPiece  = null;
     }
-    private void Attack(){        
-            
-        System.out.println("Attack!"); 
-        finalPositionX = attackedPiece.getTableParts().getLocationX();
-        finalPositionY = attackedPiece.getTableParts().getLocationY();
-        if(actualPiece.attackMove(gridTab,table,finalPositionX , finalPositionY)){
-            table[finalPositionX][finalPositionY].setPiece(null);
-            gridTab.getChildren().remove(attackedPiece);
-             System.out.println("Attack realizado!"); 
+    private void Attack(){
+        
+        if(actualPiece instanceof StormPiece){
+            StormPiece storm = (StormPiece) actualPiece;
+            storm.AttackAbility(table, gridTab);
+        }else{
+            System.out.println("Attack!"); 
+            finalPositionX = attackedPiece.getTableParts().getLocationX();
+            finalPositionY = attackedPiece.getTableParts().getLocationY();
+            if(actualPiece.attackMove(gridTab,table,finalPositionX , finalPositionY)){
+                table[finalPositionX][finalPositionY].setPiece(null);
+                gridTab.getChildren().remove(attackedPiece);
+                System.out.println("Attack realizado!"); 
        }else System.out.println("Attack invalido!");     
             
-        
-        reset();
+       reset();
+        }
         
     }
     

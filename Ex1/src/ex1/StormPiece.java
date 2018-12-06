@@ -49,8 +49,8 @@ public class StormPiece extends Piece{
 
     @Override
     protected boolean calculateMovePiece(TableParts[][] table, int x, int y) {
-        int xInit = t.getLocationX(); //Line
-        int yInit = t.getLocationY(); //Colune
+        int xInit = t.getLocationX(); 
+        int yInit = t.getLocationY(); 
         int i=xInit, j=yInit;
         
         //Time 1 = From bottom to top
@@ -127,33 +127,62 @@ public class StormPiece extends Piece{
     /*
     -----------------------------------ATTACK-------------------------------------------------------------------
     */
-
+    //Método inutilizável para a peça StormPiec
     @Override
-    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
-        return calculeteAttackMove(table , x , y);
+    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) { //Método inutilizável para a peça StormPiec
+        int xInit = t.getLocationX(); 
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit, m = 0, n = 0;
+        //Método inutilizável para a peça StormPiec
+        if((x<=i+1) && (x>=i-1) && (x<=j+1) && (x>=j-1)) return true;
+        else return false;
+        //Método inutilizável para a peça StormPiec
     }
-    
     /*
     ------------------------------------CALCULATE / CHECK ATTACK---------------------------------------------------------
     */
-
+    //Método inutilizável para a peça StormPiec
     @Override
-    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
-        int xInit = t.getLocationX(); //Line
-        int yInit = t.getLocationY(); //Colune
+    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) { //Método inutilizável para a peça StormPiec
+        int xInit = t.getLocationX(); 
+        int yInit = t.getLocationY(); 
         int i=xInit, j=yInit;
-        /*
-        Pode ser feita uma verificação em um else dento de calculateMovePiece e aqui fazer a ação de remover a peça;
-        Vai ter que ser feita uma verifição por time (0 e 1);
-        */
-        return false;
+        //Método inutilizável para a peça StormPiec
+        return table[i-1][j-1].getPiece()!=null || table[i][j-1].getPiece()!=null || table[i+1][j-1].getPiece()!=null || table[i-1][j].getPiece()!=null || table[i+1][j].getPiece()!=null || table[i-1][j+1].getPiece()!=null || table[i][j+1].getPiece()!=null || table[i-1][j+1].getPiece()!=null;
     }
-    
+    //Método inutilizável para a peça StormPiec
     /*
     ------------------------------------CALCULATE / CHECK ATTACK---------------------------------------------------------
     */
     
-    protected void CalculateAttackAbility(){
-        
+    protected void AttackAbility(TableParts[][] table, GridPane p){
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+
+        if(table[i-1][j-1].getPiece()!=null){ //7
+            p.getChildren().remove(table[i-1][j-1].getPiece());
+        }
+        if(table[i][j-1].getPiece()!=null){ //8
+            p.getChildren().remove(table[i][j-1].getPiece());
+        }
+        if(table[i+1][j-1].getPiece()!=null){ //9
+            p.getChildren().remove(table[i+1][j-1].getPiece());
+        }
+        if(table[i-1][j].getPiece()!=null){ //4
+            p.getChildren().remove(table[i-1][j].getPiece());
+        }
+        if(table[i+1][j].getPiece()!=null){ //6
+            p.getChildren().remove(table[i+1][j].getPiece());
+        }
+        if(table[i-1][j+1].getPiece()!=null){ //1
+            p.getChildren().remove(table[i-1][j+1].getPiece());
+        }
+        if(table[i][j+1].getPiece()!=null){ //2
+            p.getChildren().remove(table[i][j+1].getPiece());
+        }
+        if(table[i-1][j+1].getPiece()!=null){ //3
+            p.getChildren().remove(table[i-1][j+1].getPiece());
+        }
     }
 }

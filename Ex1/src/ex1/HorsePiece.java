@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
  * @author Maíra
  */
 public class HorsePiece extends Piece {
-
+    int hit = 1;
     public HorsePiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }
@@ -22,9 +22,10 @@ public class HorsePiece extends Piece {
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         
         if(calculateMovePiece( table, x,  y)){
+            t.setPiece(null);
             p.getChildren().remove(this);
             p.add(this,x,y);
-            if(table[x][y].getPiece()!=null){
+            if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team){
                 p.getChildren().remove(table[x][y].getPiece());
             }
             table[x][y].setPiece(this);
@@ -63,7 +64,7 @@ public class HorsePiece extends Piece {
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        if(table[i+1][j+2]==table[x][y] || table[i+2][j+1]==table[x][y] )return true;
+        if((i+1==x && j+2==y)|| (i+2==x && j+1==y) )return true;
         return false;
     }
 
@@ -72,7 +73,8 @@ public class HorsePiece extends Piece {
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        if(table[i-1][j+2]==table[x][y] || table[i-2][j+1]==table[x][y] )return true;
+        if((i-1==x && j+2==y)|| (i-2==x && j+1==y) )return true;
+        
         return false;
     }
 
@@ -80,7 +82,8 @@ public class HorsePiece extends Piece {
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        if(table[i+1][j-2]==table[x][y] || table[i+2][j-1]==table[x][y] )return true;
+        if((i+1==x && j-2==y)|| (i+2==x && j-1==y) )return true;
+        
         return false;
     }
 
@@ -88,7 +91,8 @@ public class HorsePiece extends Piece {
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        if(table[i-1][j-2]==table[x][y] || table[i-2][j-1]==table[x][y] )return true;
+        if((i-1==x && j-2==y)|| (i-2==x && j-1==y) )return true;
+        
         return false;   
     }
     

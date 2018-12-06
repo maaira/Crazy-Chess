@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
  * @Bacon
  */
 public class HanPiece extends Piece {
+        int hit =2;
      public HanPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }   
@@ -78,9 +79,10 @@ public class HanPiece extends Piece {
     
     @Override
     protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
-        if(calculeteAttackMove(table , x , y)){   
+        if(calculeteAttackMove(table , x , y) &&  table[x][y].getPiece().getTeam()!=team){   
             if(table[x][y].getPiece()!=null){
                 p.getChildren().remove(table[x][y].getPiece());
+                table[x][y].setPiece(null);
                 return true;
             }else return false;
              

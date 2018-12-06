@@ -9,6 +9,6 @@ package ex1;
  *
  * @author win7
  */
-public class TableAction {
+public class TableAction extends TableController {
     
 }

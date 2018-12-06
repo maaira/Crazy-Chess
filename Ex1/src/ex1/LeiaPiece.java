@@ -36,44 +36,6 @@ public class LeiaPiece extends Piece{
         
        
 
-                /*if(x==i && j==y)return true;
-                if(i <= x && j <= y) {//sudeste
-                    if(cont<2){
-                        if (table[i][j].getPiece()==null) {
-                            j++;
-                        }else return false;
-                    }else{
-                        if (table[i][j].getPiece()==null) {
-                            i++;
-                        }else return false;
-                    }
-                    
-                }
-                else if(i >= x && j <= y){//noroeste
-                    if (table[i][j].getPiece()== null) {
-                        i = i+2;
-                        j = j-2;
-                    }else return false;
-
-                }
-                else if(i <= x && j >= y){//nordeste
-                    if (table[i][j].getPiece() == null) {
-                        i = i-2;
-                        j = j+2;
-                    }else return false;
-
-                }
-                else if(i > x && j > y){//sudoeste
-                    if (table[i][j].getPiece() == null) {
-                        i = i+2;
-                        j = j+2;
-                    }else return false;
-                }
-                else return false;
-                cont++;
-
-
-            }*/
        
         
         return false;
@@ -82,20 +44,17 @@ public class LeiaPiece extends Piece{
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         if(calculateMovePiece(table,x,y)){
-            t=table[x][y];
+            p.getChildren().remove(this);
+            p.add(this,x,y);
+            t.setPiece(null);
+            if(table[x][y].getPiece()!=null){
+                p.getChildren().remove(table[x][y].getPiece());
+            }
+            table[x][y].setPiece(this);
+            t = table[x][y];
             
             return true;
         }
-        return false;
-    }
-
-    @Override
-    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
-       return false;
-    }
-
-    @Override
-    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
         return false;
     }
 
@@ -105,14 +64,14 @@ public class LeiaPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         
-        if((i+2!=x && j+2!=y))return false;
+        if((i+2!=x || j+2!=y))return false;
         
         else{
             
             j++;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
-            while(cont<=3){           
+            while(cont<4){           
                 if(i==x && j==y)return true;
                 if(cont<1){
                     if (table[i][j].getPiece()==null) {j++;}
@@ -135,14 +94,14 @@ public class LeiaPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         
-        if((i-2!=x && j+2!=y))return false;
+        if((i-2!=x || j+2!=y))return false;
         
         else{
             
             j++;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
-            while(cont<=3){           
+            while(cont<4){           
                 if(i==x && j==y)return true;
                 if(cont<1){
                     if (table[i][j].getPiece()==null) {j++;}
@@ -165,14 +124,14 @@ public class LeiaPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         
-        if((i-2!=x && j-2!=y))return false;
+        if((i-2!=x || j-2!=y))return false;
         
         else{
             
             j--;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
-            while(cont<=3){           
+            while(cont<4){           
                 if(i==x && j==y)return true;
                 if(cont<1){
                     if (table[i][j].getPiece()==null) {j--;}
@@ -195,14 +154,14 @@ public class LeiaPiece extends Piece{
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
         
-        if((i+2!=x && j-2!=y))return false;
+        if((i+2!=x || j-2!=y))return false;
         
         else{
             
             j--;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
-            while(cont<=3){           
+            while(cont<4){           
                 if(i==x && j==y)return true;
                 if(cont<1){
                     if (table[i][j].getPiece()==null) {j--;}
@@ -219,6 +178,87 @@ public class LeiaPiece extends Piece{
         
         return false;
     }
+
+    @Override
+    protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {
+       if(calculeteAttackMove(table , x , y)){   
+            if(table[x][y].getPiece()!=null  && table[x][y].getPiece().getTeam()!=team){
+                p.getChildren().remove(table[x][y].getPiece());p.getChildren().remove(table[x][y].getPiece());
+                table[x][y].setPiece(null);
+                return true;
+            }else return false;
+             
+        }    
+        return false;
+    }
+
+    @Override
+    protected boolean calculeteAttackMove(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
         
+        if(j<=y)return SAttack(table,x,y);//sul
+        if(j>=y)return NAttack(table,x,y);//Norte
+        if(i>=x)return LAttack(table,x,y);//Leste
+        if(i<=x)return OAttack(table,x,y);//Oeste
+        return false;
+    }
+
+    private boolean SAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && j<=13){
+            j++;            
+            if(j==y)return true;
+            if(j>13)return false;
+            if(j>y)return false;
+            if(table[i][j].getPiece()!=null)return false;
+        }
+        return false;
+    }
+
+    private boolean NAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && j<=13){
+            j--;            
+            if(j==y)return true;
+            if(j>13)return false;
+            if(j>y)return false;
+            if(table[i][j].getPiece()!=null)return false;
+        }
+        return false;
+    }
+
+    private boolean LAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && j<=13){
+            i++;            
+            if(i==x)return true;
+            if(i>13)return false;
+            if(i>x)return false;
+            if(table[i][j].getPiece()!=null)return false;
+        }
+        return false;
+    }
+
+    private boolean OAttack(TableParts[][] table, int x, int y) {
+        int xInit = t.getLocationX();
+        int yInit = t.getLocationY();
+        int i=xInit, j=yInit;
+        while(i<=13 && j<=13){
+            i--;            
+            if(i==x)return true;
+            if(i>13)return false;
+            if(i>x)return false;
+            if(table[i][j].getPiece()!=null)return false;
+        }
+        return false;
+    }
     
 }

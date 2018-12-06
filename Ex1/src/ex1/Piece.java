@@ -17,7 +17,10 @@ public abstract class Piece extends ImageView{
     
     protected String path;
     @FXML ImageView png;
-    
+    int round;
+    void setRound(int i){
+        round = i;
+    }
     //protected int hp, hit ;
     public Piece(String path, TableParts t, int team) throws FileNotFoundException{
         super(path);                        
@@ -71,4 +74,6 @@ public abstract class Piece extends ImageView{
     protected abstract boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y);
     //function to validate the attack of the piece
     protected abstract boolean calculeteAttackMove(TableParts[][] table ,int x ,int y);
+
+    
 }

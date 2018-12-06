@@ -9,7 +9,7 @@ import javafx.scene.layout.GridPane;
  * @author Maira
  */
 public class MilleniumPiece extends Piece{
-
+    int hit =2;
     public MilleniumPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }   
@@ -37,7 +37,7 @@ public class MilleniumPiece extends Piece{
         int i=xInit, j=yInit+1;
         
             int cont=0;
-            while(cont<=4){
+            while(cont<4){
                 if(table[i][j]==table[x][y])return true;
                 if (table[i][j].getPiece()==null) {
                         i++;
@@ -58,12 +58,12 @@ public class MilleniumPiece extends Piece{
         
             j++;
             int cont=0;
-            while(cont<=4){
+            while(cont<4){
                 if(table[i][j]==table[x][y])return true;
                 if (table[i][j].getPiece()==null) {
                         i--;
                         j++;
-                    }else return false;
+                }else return false;
                 cont++;
             }
             return false;
@@ -79,7 +79,7 @@ public class MilleniumPiece extends Piece{
         
             j--;
             int cont=0;
-            while(cont<=4){
+            while(cont<4){
                 if(table[i][j]==table[x][y])return true;
                 
                 else if (table[i][j].getPiece()==null) {
@@ -89,6 +89,8 @@ public class MilleniumPiece extends Piece{
                 cont++;
             }
             return false;
+        
+        
         
     }
     
@@ -100,7 +102,7 @@ public class MilleniumPiece extends Piece{
         
             j--;
             int cont=0;
-            while(cont<=4){
+            while(cont<4){
                 if(table[i][j]==table[x][y])return true;
                 if (table[i][j].getPiece()==null) {
                         i++;
@@ -110,12 +112,16 @@ public class MilleniumPiece extends Piece{
             }
             return false;
         
+        
     }
     
     @Override
     protected boolean attackMove(GridPane p,TableParts[][] table ,int x ,int y) {             
-        if(calculeteAttackMove(table , x , y)){
-        
+        if(calculeteAttackMove(table , x , y) && table[x][y].getPiece().getTeam()!=team){
+            
+            p.getChildren().remove(table[x][y].getPiece());
+            table[x][y].setPiece(null);
+            return true;
         }    
         return false;
     }
@@ -124,9 +130,10 @@ public class MilleniumPiece extends Piece{
     @Override
     public boolean movePiece(GridPane p,TableParts[][] table ,int x ,int y) {
         if(calculateMovePiece(table,x,y)){
+            t.setPiece(null);
             p.getChildren().remove(this);
             p.add(this,x,y);
-            if(table[x][y].getPiece()!=null){
+            if(table[x][y].getPiece()!=null && table[x][y].getPiece().getTeam()!=team){
                 p.getChildren().remove(table[x][y].getPiece());
             }
             table[x][y].setPiece(this);
@@ -212,5 +219,7 @@ public class MilleniumPiece extends Piece{
         }
         return false;
     }
+
+    
     
 }

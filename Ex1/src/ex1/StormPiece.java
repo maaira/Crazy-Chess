@@ -5,6 +5,7 @@
  */
 package ex1;    
 
+import com.sun.org.apache.bcel.internal.generic.GOTO;
 import java.io.FileNotFoundException;
 import javafx.scene.layout.GridPane;
 
@@ -15,7 +16,6 @@ import javafx.scene.layout.GridPane;
  */
 public class StormPiece extends Piece{
     
-    int cont, contFinal;
     public StormPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }
@@ -122,7 +122,7 @@ public class StormPiece extends Piece{
             int yInit = t.getLocationY();
             int i=xInit, j=yInit;
             
-            if(cont==1){
+            if(TableController.cont>=1){
                 if(table[x-1][y-1].getPiece()!=null){ //7
                     p.getChildren().remove(table[x-1][y-1].getPiece());
                 }
@@ -147,6 +147,7 @@ public class StormPiece extends Piece{
                 if(table[x-1][y+1].getPiece()!=null){ //3
                     p.getChildren().remove(table[x-1][y+1].getPiece());
                 }
+                TableController.cont--;
             }
 
         }

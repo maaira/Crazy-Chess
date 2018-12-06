@@ -34,7 +34,8 @@ public class TableController implements Initializable{
     private Piece actualPiece, attackedPiece;
     private int initPositionX, initPositionY,finalPositionX,finalPositionY ;
     private Player player1,player2;    
-    int round=0, cont = 0;
+    int round=0;
+    public static int cont = 0;
     
     private GridPane Cemitery(){
         GridPane tery = new GridPane();
@@ -66,20 +67,16 @@ public class TableController implements Initializable{
     }
     
     private void setMoveStatus(){
-        if(round%2==00){
-            if(round%8==0 && cont<1){
-                cont++;
-            }
+        if(round%2==0){
             player1.moveStatus(true);
             player2.moveStatus(false);
         }else{
-            if(round%8==0 && cont<1){
-                cont++;
-            }
             player1.moveStatus(false);
             player2.moveStatus(true);
         }
-    
+        if(round%8==0 && cont<1){
+            cont++;
+        }
     }
     
     void makeCemitery(){
@@ -179,7 +176,6 @@ public class TableController implements Initializable{
             setMoveStatus();
             CheckMove();
             Check();
-            cont--;
                             
         }else JOptionPane.showMessageDialog(null,"Movimetno invaldido.");
         reset();

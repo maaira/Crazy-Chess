@@ -10,7 +10,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author win7
+ * @author Marcos
  */
 public class DarthPiece extends Piece{
     public DarthPiece(String path, TableParts t, int team) throws FileNotFoundException {

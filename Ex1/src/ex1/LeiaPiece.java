@@ -18,8 +18,6 @@ public class LeiaPiece extends Piece{
         super(path, t, team);
     }
 
-    
-   
 //Movimento: anda duas casas para frente e duas para o lado
 
     @Override
@@ -33,11 +31,6 @@ public class LeiaPiece extends Piece{
         if(i>=x && j<=y)return SOMove(table,x,y);//sudoeste
         if(i>=x && j>=y)return NOMove(table,x,y);//noroeste
         if(i<=x && j>=y)return NEMove(table,x,y);//nordeste        
-        
-       
-
-       
-        
         return false;
     }
 
@@ -52,7 +45,6 @@ public class LeiaPiece extends Piece{
             }
             table[x][y].setPiece(this);
             t = table[x][y];
-            
             return true;
         }
         return false;
@@ -67,7 +59,6 @@ public class LeiaPiece extends Piece{
         if((i+2!=x || j+2!=y))return false;
         
         else{
-            
             j++;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
@@ -79,13 +70,10 @@ public class LeiaPiece extends Piece{
                 }else{
                     if (table[i][j].getPiece()==null) {i++;}
                     else return false;
-                
                 }
-                
                 cont++;  
             }
         }
-        
         return false;
     }
 
@@ -95,9 +83,7 @@ public class LeiaPiece extends Piece{
         int i=xInit, j=yInit;
         
         if((i-2!=x || j+2!=y))return false;
-        
         else{
-            
             j++;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
@@ -109,13 +95,10 @@ public class LeiaPiece extends Piece{
                 }else{
                     if (table[i][j].getPiece()==null) {i--;}
                     else return false;
-                
                 }
-                
                 cont++;  
             }
         }
-        
         return false;
     }
 
@@ -123,9 +106,7 @@ public class LeiaPiece extends Piece{
         int xInit = t.getLocationX();
         int yInit = t.getLocationY();
         int i=xInit, j=yInit;
-        
         if((i-2!=x || j-2!=y))return false;
-        
         else{
             
             j--;
@@ -139,13 +120,10 @@ public class LeiaPiece extends Piece{
                 }else{
                     if (table[i][j].getPiece()==null) {i--;}
                     else return false;
-                
                 }
-                
                 cont++;  
             }
         }
-        
         return false;
     }
 
@@ -155,9 +133,7 @@ public class LeiaPiece extends Piece{
         int i=xInit, j=yInit;
         
         if((i+2!=x || j-2!=y))return false;
-        
         else{
-            
             j--;
             int cont=0;
             if (table[i][j].getPiece()!=null)return false;
@@ -169,13 +145,10 @@ public class LeiaPiece extends Piece{
                 }else{
                     if (table[i][j].getPiece()==null) {i++;}
                     else return false;
-                
                 }
-                
                 cont++;  
             }
         }
-        
         return false;
     }
 
@@ -187,7 +160,6 @@ public class LeiaPiece extends Piece{
                 table[x][y].setPiece(null);
                 return true;
             }else return false;
-             
         }    
         return false;
     }

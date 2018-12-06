@@ -6,7 +6,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  *
- * @author Maíra
+ * @author Marcos
  */
 
 public class Pion extends Piece{

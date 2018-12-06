@@ -3,11 +3,11 @@ package ex1;
 import java.io.FileNotFoundException;
 import javafx.scene.layout.GridPane;
 
-
+/**
+ *
+ * @author Pedro
+ */
 public class ChewPiece extends Piece{
-    ////////////                                               ////////////////
-//////BACON_DEUX_DEUS NO CEU E BACON NA TERRA E CAIQUE NA MINHA **;/////////////
-    /////////                                                  ////////////////
     public ChewPiece(String path, TableParts t, int team) throws FileNotFoundException {
         super(path, t, team);
     }

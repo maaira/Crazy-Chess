@@ -5,7 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
-
+/**
+ *
+ * @author Maira
+ */
 public abstract class Piece extends ImageView{
     //the part piece
     protected int team;
@@ -17,8 +20,9 @@ public abstract class Piece extends ImageView{
     protected boolean move_status ;
     
     protected String path;
-    @FXML ImageView png;
+    
     int round;
+    
     void setRound(int i){
         round = i;
     }
@@ -54,17 +58,7 @@ public abstract class Piece extends ImageView{
         this.fitHeightProperty().set(50);
         this.fitWidthProperty().set(50);
     }
-    /*public int[] getLocation() {
-        return location;
-    }
-
     
-    
-    public void setLocation(TableParts t) {
-        this.location[0] = t.getLocationX();
-        this.location[1] = t.getLocationY();
-        t.setPiece(this);
-    }*/
 
     
     //function to move

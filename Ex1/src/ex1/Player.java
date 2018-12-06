@@ -1,6 +1,9 @@
 
 package ex1;
-
+/**
+ *
+ * @author Maira
+ */
 import java.util.ArrayList;
 
 public class Player {

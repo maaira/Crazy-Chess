@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ex1;
 
 import java.io.IOException;
@@ -21,10 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Pedro Felipe
- */
 public class FXMLDocumentController implements Initializable {
     @FXML private TextField txtuser1;
     @FXML private TextField txtuser2;
@@ -34,8 +25,6 @@ public class FXMLDocumentController implements Initializable {
     String nome1, nome2;
     
     private boolean user(){
-        nome1 = "Maíra";
-        nome2 = "Marcus";      
         nome1 = txtuser1.getText();
         nome2 = txtuser2.getText();
         System.out.println(nome1);
@@ -47,11 +36,10 @@ public class FXMLDocumentController implements Initializable {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Player");
         alert.setHeaderText("Enter the players names!");
-       
     }
+    
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        
+    private void handleButtonAction(ActionEvent event) { 
         try {
             user();
             if(nome1!=null || nome2!=null){
@@ -68,27 +56,15 @@ public class FXMLDocumentController implements Initializable {
                 controller.setTable();
                 stage.show();
             }
-            
-            
-            
-            
-            
-            
-                   
         }
         catch (IOException e) {
             e.printStackTrace();
             label.setText("Erro ao chamar a Table!" + e.getMessage());
         }
-        
     }
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
-    
-    
 }

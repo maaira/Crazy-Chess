@@ -1,6 +1,16 @@
-
 package ex1;
 
+import ex1.ChewPiece;
+import ex1.DarthPiece;
+import ex1.HanPiece;
+import ex1.HorsePiece;
+import ex1.LeiaPiece;
+import ex1.MilleniumPiece;
+import ex1.Piece;
+import ex1.Pion;
+import ex1.Player;
+import ex1.StormPiece;
+import ex1.TableParts;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,12 +27,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javax.swing.JOptionPane;
 
-
 public class TableController implements Initializable{
     
-        @Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
     }
     
     @FXML BorderPane bpMain;
@@ -37,7 +45,10 @@ public class TableController implements Initializable{
     int round=0;
     public static int cont = 0;
     
-    private GridPane Cemitery(){
+    private GridPane Cemitery(){ //GENERATION OF THE CEMETERY
+        /*
+        NÃO FOI UTILIZADO/IMPLEMENTADO O CEMITÉRIO NO XADREZ
+        */
         GridPane tery = new GridPane();
         TableParts t [][]= new TableParts[14][3];
         for(int i=0;i<14;i++){
@@ -57,16 +68,12 @@ public class TableController implements Initializable{
                 final Rectangle r = new Rectangle(50, 50);              
                 r.setFill(Color.BLACK);
                 tery.add(r, j,i);        
-                                
             }
         }
-        
-        
         return tery;
-        
     }
     
-    private void setMoveStatus(){
+    private void setMoveStatus(){ //GAMES ALTERNATION + SKILL COUNTER
         if(round%2==0){
             player1.moveStatus(true);
             player2.moveStatus(false);
@@ -79,7 +86,10 @@ public class TableController implements Initializable{
         }
     }
     
-    void makeCemitery(){
+    private void makeCemitery(){//MAKE THE CEMETERY
+        /*
+        NÃO FOI UTILIZADO/IMPLEMENTADO O CEMITÉRIO NO XADREZ
+        */
         cemitery_left = Cemitery();
         cemitery_right = Cemitery();
         bpMain.setLeft(cemitery_left);
@@ -87,13 +97,13 @@ public class TableController implements Initializable{
         
     }
     
-    void setPlayer(){
+    private void setPlayer(){ //CREATION OF TIME
         player1 = new Player("m",0);
         player2 = new Player("c",1);
     
     }
     
-    void setTable() throws FileNotFoundException{
+    public void setTable() throws FileNotFoundException{ //MAKE THE TABLE
         setPlayer();
         makeTable();
         setMoveStatus();        
@@ -101,39 +111,26 @@ public class TableController implements Initializable{
         
     }
     
-    void Round(){
+    private void Round(){ //DID ROUND FOR PLAYER
         player1.setRoundGame(round);
         player2.setRoundGame(round);
     }
     
-    void makeTable() throws FileNotFoundException {
+    private void makeTable() throws FileNotFoundException { //MAKE TABLE
         GridPane gridTab = new GridPane();
-        
         TableParts t [][]= new TableParts[14][14];
-        
         for (int i = 0; i <= linhas; i++) {
-            
             RowConstraints con = new RowConstraints();
-            
             con.setPrefHeight(50);
-            
             gridTab.getRowConstraints().add(con);
-            
         }       
-        
         for (int i = 0; i <= colunas; i++) {
-            
             ColumnConstraints con = new ColumnConstraints();
-            
             con.setPrefWidth(50);
-            
             gridTab.getColumnConstraints().add(con);
-            
         }
-        
         for(int i=0; i<linhas; i++){
             for(int j=0;j<colunas;j++){               
-                              
                 if((i%2==0 && j%2!=0) || (i%2!=0 && j%2==0)){ 
                     t[j][i]= new TableParts( Color.GRAY, j, i);
                     addEventesToTable(t[j][i]);
@@ -145,8 +142,6 @@ public class TableController implements Initializable{
                     t[j][i].setPiece(null);
                 }
                 gridTab.add(t[j][i], j,i);            
-                
-                
             }
         }
         this.gridTab= gridTab;
@@ -155,7 +150,7 @@ public class TableController implements Initializable{
         bpMain.setCenter(gridTab);
     }
     
-    private void Move(){
+    private void Move(){ //MAIN MOVEMENT METHOD
         System.out.println("Move.");
         initPositionX =  actualPiece.getTableParts().getLocationX();
         initPositionY =  actualPiece.getTableParts().getLocationY();
@@ -166,43 +161,37 @@ public class TableController implements Initializable{
         System.out.println("Move.");
         boolean t = actualPiece.getMove_status();
         if(actualPiece.getMove_status() ==true && actualPiece.movePiece(gridTab,table, finalPositionX, finalPositionY) ){
-            
             System.out.println("("+actualPiece.getTableParts().getLocationX()+","+ actualPiece.getTableParts().getLocationY());
-                       
-            
             System.out.println("Movimento Aceito.");
             round++;
             Round();
             setMoveStatus();
             CheckMove();
             Check();
-                            
         }else JOptionPane.showMessageDialog(null,"Movimetno invaldido.");
         reset();
     }    
     
-    
-    void reset(){
+    private void reset(){
         tclicked     = null;
         attackedPiece= null;
         actualPiece  = null;
     }
     
-    void Check(){        if(player1.getPiece().isEmpty()){
+    private void Check(){ //CHECK THE WINNER
+        if(player1.getPiece().isEmpty()){
             JOptionPane.showMessageDialog(null,"Jogador 2 Venceu! O imperio ganhou!");
         }else if(player2.getPiece().isEmpty()){
-
             JOptionPane.showMessageDialog(null,"Jogador 1 Venceu! A aliança venceu!");
         }
-    
     }
     
-    void CheckMove(){
+    private void CheckMove(){ //CHECK THE MOVEMENT
         if(attackedPiece!=null && attackedPiece.getTeam()==0)player1.getPiece().remove(attackedPiece);
         if(attackedPiece!=null && attackedPiece.getTeam()==2)player2.getPiece().remove(attackedPiece);
     }
-    private void Attack(){        
-            
+    
+    private void Attack(){ //MAIS ATTACK METHOD
         System.out.println("Attack!"); 
         finalPositionX = attackedPiece.getTableParts().getLocationX();
         finalPositionY = attackedPiece.getTableParts().getLocationY();
@@ -217,13 +206,10 @@ public class TableController implements Initializable{
             Check();
             cont--;
        }else JOptionPane.showMessageDialog(null,"Ataque invalido.");    
-            
-        
-        reset();
-        
+       reset();
     }
     
-    public void addEventesToTable(TableParts t1){
+    private void addEventesToTable(TableParts t1){ //ADD EVENTS TO OBJECTS TABLE PARTS
         EventHandler<javafx.scene.input.MouseEvent> eventHandler; 
         eventHandler = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
@@ -240,17 +226,13 @@ public class TableController implements Initializable{
                     if(actualPiece!=null && attackedPiece!=null){
                         Attack();
                     }
-                    
                 }                
-                
             }
-            
-            
         };
         t1.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandler);
     }
     
-    public void addEventesToPiece(Piece p){
+    private void addEventesToPiece(Piece p){ //ADD EVENTS TO PART
         EventHandler<javafx.scene.input.MouseEvent> eventHandlerPiece = new EventHandler<javafx.scene.input.MouseEvent>() { 
             @Override
             public void handle(MouseEvent event) {
@@ -262,24 +244,19 @@ public class TableController implements Initializable{
                         tclicked = attackedPiece.getTableParts();
                         Move();
                     }
-                    
                 }
                 if(event.getButton()== MouseButton.SECONDARY){
                     if(actualPiece!=null)attackedPiece=p;
                     if(actualPiece!=null && attackedPiece!=null){
                         Attack();
                     }
-                    
                 }
-                
             }
-   
-   
         };
         p.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, eventHandlerPiece);
     }
     
-    public void addPieces() throws FileNotFoundException{
+    private  void addPieces() throws FileNotFoundException{ //DECLARATION OF METHODS TO ADD PARTS
         addMilleniumFalcon();
         addLeiaPiece();
         addStormPiece();
@@ -288,10 +265,13 @@ public class TableController implements Initializable{
         addHanPiece();
         addChewPiece();
         addPion();
-        
     }
     
-    public void addDarthPiece() throws FileNotFoundException{
+    private void addDarthPiece() throws FileNotFoundException{
+        
+    /*
+    -------------------------------------- GENERATION DARTH PIECE ------------------------------------
+    */
         DarthPiece dv = new DarthPiece("images/Darth_Vader.jpeg", table[4][12], 1);
         gridTab.add(dv, 4, 12);
         table[4][12].setPiece(dv);
@@ -364,7 +344,10 @@ public class TableController implements Initializable{
         addEventesToPiece(Y6);
         player1.getPiece().add(Y6);
     }
-    
+        
+    /*
+    -------------------------------------- GENERATION CHEW PIECE ------------------------------------
+    */
     private void  addChewPiece() throws FileNotFoundException{
         ChewPiece c = new ChewPiece("images/Chewbacca.png", table[2][2], 0);
         gridTab.add(c, 2, 2);
@@ -400,7 +383,6 @@ public class TableController implements Initializable{
         table[11][2].setPiece(c5);
         addEventesToPiece(c5);
         player1.getPiece().add(c);
-        
         
         ChewPiece c6 = new ChewPiece("images/jarjar.jpeg", table[2][11], 1);
         gridTab.add(c6, 2, 11);
@@ -439,7 +421,10 @@ public class TableController implements Initializable{
         player1.getPiece().add(c);
     }
     
-    public void addMilleniumFalcon() throws FileNotFoundException{
+    /*
+    -------------------------------------- GENERATION MILLENIUM FALCON PIECE ------------------------------------
+    */
+    private void addMilleniumFalcon() throws FileNotFoundException{
         MilleniumPiece m = new MilleniumPiece("images/Millenium.jpeg", table[2][1], 0);
         gridTab.add(m, 2, 1);
         table[2][1].setPiece(m);
@@ -488,8 +473,11 @@ public class TableController implements Initializable{
         addEventesToPiece(N4);
         player2.getPiece().add(N4);
     }
-    
-    public void addPion() throws FileNotFoundException{
+        
+    /*
+    -------------------------------------- GENERATION PION PIECE ------------------------------------
+    */
+    private void addPion() throws FileNotFoundException{
         Pion Pi = new Pion("images/R2D2.jpeg", table[0][0], 0);
         gridTab.add(Pi, 0, 0);
         table[0][0].setPiece(Pi);
@@ -539,8 +527,11 @@ public class TableController implements Initializable{
         addEventesToPiece(D4);
         player2.getPiece().add(D4);
     }
-    
-    public void addHorse() throws FileNotFoundException{
+        
+    /*
+    -------------------------------------- GENERATION HORSE PIECE ------------------------------------
+    */
+    private void addHorse() throws FileNotFoundException{
         HorsePiece H = new HorsePiece("images/POD1.jpeg", table[1][1], 0);
         gridTab.add(H, 1, 1);
         table[1][1].setPiece(H);
@@ -636,10 +627,12 @@ public class TableController implements Initializable{
         table[12][2].setPiece(H16);
         addEventesToPiece(H16);
         player1.getPiece().add(H16);
-        
-        
     }
-    public void addLeiaPiece() throws FileNotFoundException{
+        
+    /*
+    -------------------------------------- GENERATION LEIA PIECE ------------------------------------
+    */
+    private void addLeiaPiece() throws FileNotFoundException{
         LeiaPiece L = new LeiaPiece("images/Leia.png", table[4][0], 0);
         gridTab.add(L, 4, 0);
         table[4][0].setPiece(L);
@@ -711,9 +704,11 @@ public class TableController implements Initializable{
         table[8][11].setPiece(J6);
         addEventesToPiece(J6);
         player2.getPiece().add(J6);
-        
    }
-    
+        
+    /*
+    -------------------------------------- GENERATION STORM PIECE ------------------------------------
+    */
     private void addStormPiece() throws FileNotFoundException{ // Generation StormPice
        StormPiece sP = new StormPiece("images/Stormtrooper.png", table[5][12], 1);
        gridTab.add(sP, 5, 12);
@@ -762,8 +757,11 @@ public class TableController implements Initializable{
        addEventesToPiece(rP2);
        player1.getPiece().add(rP);
     }  
-    
-   public void addHanPiece() throws FileNotFoundException{
+        
+    /*
+    -------------------------------------- GENERATION HAN PIECE ------------------------------------
+    */
+    private void addHanPiece() throws FileNotFoundException{
         HanPiece m = new HanPiece("images/han_solo.jpeg", table[3][0], 0);
         gridTab.add(m, 3, 0);
         table[3][0].setPiece(m);
@@ -812,6 +810,4 @@ public class TableController implements Initializable{
         addEventesToPiece(Lan4);
         player2.getPiece().add(Lan4);
     }
-    
-   
 }
